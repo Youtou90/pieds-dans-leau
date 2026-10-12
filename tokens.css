@@ -1,0 +1,85 @@
+/* Pieds dans l'eau : jetons d'identité
+   Parti pris : une terrasse au bord du lac à Bertoua. La braise, l'eau fraîche,
+   le temps qui ralentit. Chaleureux et calme, lisible en plein soleil, jamais clinquant.
+   Charte de départ : PixelSavane (orange, vert forêt, Sora), adaptée au lieu. */
+
+:root {
+  /* Braise : l'orange PixelSavane (#F39C28). Couleur d'action, rare. */
+  --braise-100: #FDEBD1;
+  --braise-400: #F39C28;   /* fond des boutons d'action (texte lac dessus : 6.15:1) */
+  --braise-500: #E0861A;   /* survol */
+  --braise-700: #A3530A;   /* liens et prix sur sable (5.09:1) */
+
+  /* Lac : remplace le noir PixelSavane. Titres, pied de page, sections du soir. */
+  --lac-50:  #E6EFEE;
+  --lac-100: #D9E6E4;
+  --lac-300: #B9C9C6;      /* texte doux sur fond lac (7.83:1) */
+  --lac-500: #2A7F84;
+  --lac-700: #17565A;
+  --lac-900: #0D3436;
+
+  /* Sable : neutres teintés chauds, remplacent le blanc et le gris graphite. */
+  --sable-0:   #FFFCF6;
+  --sable-50:  #FBF5EA;
+  --sable-100: #F4EADA;
+  --sable-200: #E7D8BF;
+  --sable-400: #9C8566;    /* bordure de champ (3.25:1) */
+  --sable-600: #6A5F52;    /* texte doux (5.74:1) */
+  --sable-900: #2E2A24;    /* texte courant (13.14:1) */
+
+  /* Vert forêt : gardé de PixelSavane. Nature, « disponible ». */
+  --foret: #2F7C40;        /* 4.75:1 sur sable */
+  --foret-100: #E1EFE3;
+
+  /* Sens */
+  --succes: var(--foret);
+  --erreur: #B33A2A;       /* 5.44:1 */
+  --erreur-100: #F8E1DC;
+
+  /* Rôles : ce que le code emploie */
+  --fond: var(--sable-50);
+  --fond-alt: var(--sable-100);
+  --surface: var(--sable-0);
+  --sombre: var(--lac-900);
+  --sur-sombre: var(--sable-50);
+  --sur-sombre-doux: var(--lac-300);
+  --texte: var(--sable-900);
+  --titre: var(--lac-900);
+  --texte-doux: var(--sable-600);
+  --bordure: var(--sable-200);
+  --bordure-champ: var(--sable-400);
+  --action: var(--braise-400);
+  --action-survol: var(--braise-500);
+  --sur-action: var(--lac-900);
+  --lien: var(--braise-700);
+  --focus: var(--lac-500);
+  --voile: rgba(13, 52, 54, .92);        /* fond de la visionneuse photo */
+  --voile-legende: rgba(13, 52, 54, .85); /* bas des vignettes de la galerie */
+
+  /* Typographie : Fraunces (titres, chaleur et élégance) + Sora (texte, héritée de PixelSavane) */
+  --police-titre: "Fraunces", Georgia, "Times New Roman", serif;
+  --police-texte: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --corps: 16px;
+  --ligne: 1.6;
+  --t-etiquette: 13px;
+  --t-petit: 14px;
+  --t-corps: 16px;
+  --t-h4: 20px;
+  --t-h3: 24px;
+  --t-h2: clamp(28px, 6vw, 40px);
+  --t-h1: clamp(38px, 9vw, 64px);
+
+  /* Formes : deux rayons contrastés ; séparation au trait, aucune ombre */
+  --rayon-petit: 6px;      /* boutons, champs, étiquettes */
+  --rayon-grand: 22px;     /* cartes, images, blocs */
+  --rayon-rond: 999px;     /* filtres de la carte, bouton WhatsApp flottant */
+  --trait: 1px solid var(--bordure);
+
+  /* Espace : progression 4 · 8 · 16 · 24 · 40 · 64 · 104 */
+  --e-1: 4px;  --e-2: 8px;  --e-3: 16px;  --e-4: 24px;
+  --e-5: 40px; --e-6: 64px; --e-7: 104px;
+  --largeur: 1160px;
+
+  /* Mouvement : discret */
+  --duree: 180ms;
+}

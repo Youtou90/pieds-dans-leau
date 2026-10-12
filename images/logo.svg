@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Pieds dans l'eau">
+  <circle cx="60" cy="60" r="60" fill="#0D3436"/>
+  <!-- soleil couchant / braise -->
+  <path d="M28 72 A32 32 0 0 1 92 72 Z" fill="#F39C28"/>
+  <!-- pirogue et pagayeur en ombre chinoise -->
+  <path d="M34 66 Q60 75 86 66 Q83 71.5 78 72 L42 72 Q37 71.5 34 66 Z" fill="#0D3436"/>
+  <circle cx="63" cy="47.5" r="3.6" fill="#0D3436"/>
+  <path d="M60.6 52.5 L65.4 52.5 L66.4 66.5 L59 66.5 Z" fill="#0D3436"/>
+  <path d="M71.5 44 L56 78" stroke="#0D3436" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- l'eau du lac -->
+  <path d="M22 81 q6.33 -4 12.67 0 t12.67 0 t12.67 0 t12.67 0 t12.67 0 t12.67 0" fill="none" stroke="#FBF5EA" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M34 90.5 q6.5 -4 13 0 t13 0 t13 0 t13 0" fill="none" stroke="#B9C9C6" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M47 100 q6.5 -4 13 0 t13 0" fill="none" stroke="#2A7F84" stroke-width="3.2" stroke-linecap="round"/>
+</svg>

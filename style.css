@@ -1,0 +1,242 @@
+/* Pieds dans l'eau : feuille commune. N'emploie que les variables de tokens.css. */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  background: var(--fond);
+  color: var(--texte);
+  font: 400 var(--corps)/var(--ligne) var(--police-texte);
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, video { display: block; max-width: 100%; }
+a { color: var(--lien); text-underline-offset: 4px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: var(--rayon-petit); }
+h1, h2, h3, h4 { font-family: var(--police-titre); color: var(--titre); font-weight: 600; line-height: 1.12; text-wrap: balance; }
+h1 { font-size: var(--t-h1); letter-spacing: -0.01em; }
+h2 { font-size: var(--t-h2); }
+h3 { font-size: var(--t-h3); }
+h4 { font-size: var(--t-h4); }
+p { text-wrap: pretty; }
+.visuellement-cache { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.saut { position: absolute; left: var(--e-3); top: -60px; background: var(--sombre); color: var(--sur-sombre); padding: var(--e-2) var(--e-3); z-index: 100; }
+.saut:focus { top: var(--e-2); }
+
+.conteneur { width: 100%; max-width: var(--largeur); margin: 0 auto; padding: 0 var(--e-3); }
+@media (min-width: 760px) { .conteneur { padding: 0 var(--e-5); } }
+
+.surtitre { display: inline-block; font-size: var(--t-etiquette); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--texte-doux); }
+.chapeau { font-size: 18px; color: var(--texte-doux); max-width: 56ch; }
+@media (min-width: 760px) { .chapeau { font-size: 20px; } }
+
+/* ---------- En-tête ---------- */
+.entete { position: sticky; top: 0; z-index: 50; background: var(--fond); border-bottom: var(--trait); }
+.entete .conteneur { display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); min-height: 68px; }
+.marque { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--titre); }
+.marque img { width: 42px; height: 42px; }
+.marque span { font-family: var(--police-titre); font-weight: 600; font-size: 21px; line-height: 1; white-space: nowrap; }
+.nav-bouton { display: inline-flex; align-items: center; gap: var(--e-2); min-height: 44px; padding: 0 var(--e-3); border: 1px solid var(--bordure-champ); border-radius: var(--rayon-petit); background: var(--surface); color: var(--titre); font: 600 var(--t-petit)/1 var(--police-texte); cursor: pointer; }
+.nav-bouton svg { width: 20px; height: 20px; }
+.nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--fond); border-bottom: var(--trait); padding: var(--e-2) var(--e-3) var(--e-4); }
+.nav.ouvert { display: block; }
+.nav ul { list-style: none; padding: 0; display: grid; }
+.nav a { display: flex; align-items: center; min-height: 52px; color: var(--texte); text-decoration: none; font-weight: 600; border-bottom: var(--trait); }
+.nav a[aria-current="page"] { color: var(--titre); box-shadow: inset 4px 0 0 var(--action); padding-left: var(--e-3); }
+.nav .bouton { margin-top: var(--e-4); width: 100%; }
+@media (min-width: 1040px) {
+  .nav-bouton { display: none; }
+  .nav { display: flex; align-items: center; gap: var(--e-5); position: static; padding: 0; border: 0; background: none; }
+  .nav ul { display: flex; gap: var(--e-4); }
+  .nav a { min-height: 68px; border: 0; font-size: var(--t-petit); border-bottom: 3px solid transparent; padding-top: 3px; }
+  .nav a:hover { color: var(--titre); }
+  .nav a[aria-current="page"] { box-shadow: none; padding-left: 0; border-bottom-color: var(--action); }
+  .nav .bouton { margin: 0; width: auto; min-height: 44px; }
+}
+
+/* ---------- Boutons ---------- */
+.bouton { display: inline-flex; align-items: center; justify-content: center; gap: var(--e-2); min-height: 52px; padding: 0 var(--e-4); border-radius: var(--rayon-petit); border: 2px solid transparent; font: 600 var(--t-corps)/1.1 var(--police-texte); text-decoration: none; cursor: pointer; text-align: center; transition: background-color var(--duree), color var(--duree); }
+.bouton svg { width: 20px; height: 20px; flex: none; }
+.b-action { background: var(--action); color: var(--sur-action); }
+.b-action:hover { background: var(--action-survol); }
+.b-action:active { transform: translateY(1px); }
+.b-second { background: transparent; color: var(--titre); border-color: var(--titre); }
+.b-second:hover { background: var(--titre); color: var(--sur-sombre); }
+.b-discret { color: var(--lien); padding: 0 var(--e-1); min-height: 44px; text-decoration: underline; }
+.boutons { display: flex; flex-wrap: wrap; gap: var(--e-3); align-items: center; }
+@media (max-width: 479px) { .boutons .bouton:not(.b-discret) { width: 100%; } }
+
+/* ---------- Sections ---------- */
+.section { padding: var(--e-6) 0; }
+@media (min-width: 760px) { .section { padding: var(--e-7) 0; } }
+.section-alt { background: var(--fond-alt); }
+.section-tete { display: grid; gap: var(--e-3); margin-bottom: var(--e-5); max-width: 720px; }
+.sombre { background: var(--sombre); color: var(--sur-sombre); }
+.sombre h1, .sombre h2, .sombre h3, .sombre h4 { color: var(--sur-sombre); }
+.sombre .surtitre, .sombre .chapeau, .sombre p { color: var(--sur-sombre-doux); }
+.sombre .b-second { color: var(--sur-sombre); border-color: var(--sur-sombre); }
+.sombre .b-second:hover { background: var(--sur-sombre); color: var(--sombre); }
+.sombre a:not(.bouton) { color: var(--sur-sombre); }
+
+/* ---------- Accueil : héros ---------- */
+.heros { padding: var(--e-5) 0 var(--e-6); }
+.heros .conteneur { display: grid; gap: var(--e-5); align-items: center; }
+.heros-texte { display: grid; gap: var(--e-4); }
+.heros h1 em { font-style: italic; font-weight: 500; color: var(--braise-700); display: block; }
+.heros-infos { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); font-size: var(--t-petit); color: var(--texte-doux); }
+.heros-infos span { display: inline-flex; align-items: center; gap: 6px; }
+.heros-infos svg { width: 18px; height: 18px; color: var(--lac-500); }
+.scene { border-radius: var(--rayon-grand); overflow: hidden; background: var(--braise-100); aspect-ratio: 5 / 4; }
+.scene svg { width: 100%; height: 100%; }
+@media (min-width: 900px) {
+  .heros { padding: var(--e-6) 0 var(--e-7); }
+  .heros .conteneur { grid-template-columns: 1.05fr 1fr; gap: var(--e-6); }
+}
+
+/* ---------- Atouts : liste numérotée ---------- */
+.atouts { list-style: none; padding: 0; display: grid; gap: 0; border-top: var(--trait); counter-reset: atout; }
+.atouts li { display: grid; grid-template-columns: 56px 1fr; gap: var(--e-3); padding: var(--e-4) 0; border-bottom: var(--trait); counter-increment: atout; }
+.atouts li::before { content: counter(atout, decimal-leading-zero); font-family: var(--police-titre); font-size: 28px; font-weight: 500; font-style: italic; color: var(--braise-700); line-height: 1; padding-top: 2px; }
+.atouts h3 { font-size: var(--t-h4); margin-bottom: var(--e-1); }
+.atouts p { color: var(--texte-doux); }
+@media (min-width: 760px) { .atouts { grid-template-columns: 1fr 1fr; column-gap: var(--e-6); } }
+
+/* ---------- Grilles et cartes ---------- */
+.grille { display: grid; gap: var(--e-4); }
+@media (min-width: 640px) { .g2 { grid-template-columns: repeat(2, 1fr); } .g3, .g4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } }
+
+.carte { background: var(--surface); border: var(--trait); border-radius: var(--rayon-grand); padding: var(--e-4); display: grid; gap: var(--e-2); align-content: start; }
+.carte p { color: var(--texte-doux); }
+.carte-lien { text-decoration: none; color: inherit; transition: border-color var(--duree); }
+.carte-lien:hover { border-color: var(--bordure-champ); }
+.carte-lien .fleche { color: var(--lien); font-weight: 600; font-size: var(--t-petit); margin-top: var(--e-2); }
+
+.icone-rond { width: 48px; height: 48px; display: grid; place-items: center; border-radius: var(--rayon-petit); background: var(--lac-50); color: var(--lac-700); margin-bottom: var(--e-2); }
+.icone-rond svg { width: 26px; height: 26px; }
+
+/* ---------- La carte (menu) ---------- */
+.filtres { display: flex; gap: var(--e-2); overflow-x: auto; padding: var(--e-1) var(--e-1) var(--e-2); margin: 0 calc(var(--e-1) * -1) var(--e-4); scrollbar-width: none; }
+.filtres::-webkit-scrollbar { display: none; }
+.filtre { flex: none; min-height: 44px; padding: 0 var(--e-4); border-radius: var(--rayon-rond); border: 1px solid var(--bordure-champ); background: transparent; color: var(--texte); font: 600 var(--t-petit)/1 var(--police-texte); cursor: pointer; }
+.filtre:hover { border-color: var(--titre); }
+.filtre[aria-pressed="true"] { background: var(--sombre); border-color: var(--sombre); color: var(--sur-sombre); }
+
+.categorie + .categorie { margin-top: var(--e-5); }
+.categorie > h2 { font-size: var(--t-h3); margin-bottom: var(--e-3); display: flex; align-items: baseline; gap: var(--e-3); }
+.categorie > h2 small { font-family: var(--police-texte); font-size: var(--t-petit); font-weight: 400; color: var(--texte-doux); }
+
+.plat { background: var(--surface); border: var(--trait); border-radius: var(--rayon-grand); overflow: hidden; display: grid; }
+.plat-visuel { aspect-ratio: 4 / 3; background: var(--lac-100); color: var(--lac-700); display: grid; place-items: center; }
+.plat-visuel img { width: 100%; height: 100%; object-fit: cover; }
+.plat-visuel svg { width: 56px; height: 56px; opacity: .9; }
+.plat-corps { padding: var(--e-4); display: grid; gap: var(--e-2); align-content: start; }
+.plat-tete { display: flex; justify-content: space-between; align-items: baseline; gap: var(--e-3); }
+.plat-tete h3 { font-size: var(--t-h4); }
+.prix { font-weight: 600; color: var(--lien); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.plat-corps p { color: var(--texte-doux); font-size: var(--t-petit); }
+.plat-pied { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--e-3); margin-top: var(--e-2); }
+.etiquette { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-etiquette); font-weight: 600; padding: 4px 10px; border-radius: var(--rayon-petit); }
+.e-dispo { background: var(--foret-100); color: var(--foret); }
+.e-dispo::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.e-epuise { background: var(--sable-100); color: var(--texte-doux); }
+/* En attendant les photos : la carte reste compacte, l'icône prend une petite place */
+.plat.sans-photo { grid-template-columns: 72px 1fr; align-items: start; padding: var(--e-4) 0 var(--e-2) var(--e-4); }
+.plat.sans-photo .plat-visuel { aspect-ratio: 1; border-radius: var(--rayon-petit); }
+.plat.sans-photo .plat-visuel svg { width: 36px; height: 36px; }
+.plat.sans-photo .plat-corps { padding: 0 var(--e-4) 0 var(--e-3); }
+.plat.epuise .plat-visuel { filter: grayscale(.7); opacity: .75; }
+.lien-commande { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: var(--t-petit); color: var(--lien); }
+
+/* ---------- Activités ---------- */
+.activite { display: grid; gap: var(--e-4); padding: var(--e-5) 0; border-top: var(--trait); }
+.activite:first-child { border-top: 0; }
+.activite:last-child { border-bottom: var(--trait); }
+.activite .illus { border-radius: var(--rayon-grand); overflow: hidden; background: var(--lac-100); aspect-ratio: 16 / 10; }
+.activite .illus svg { width: 100%; height: 100%; }
+.activite-texte { display: grid; gap: var(--e-3); align-content: center; }
+.activite-texte ul { padding-left: 1.2em; color: var(--texte-doux); display: grid; gap: var(--e-1); }
+@media (min-width: 900px) {
+  .activite { grid-template-columns: 1fr 1fr; gap: var(--e-6); padding: var(--e-6) 0; }
+  .activite:nth-child(even) .illus { order: 2; }
+}
+
+/* ---------- Galerie ---------- */
+.galerie { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--e-2); }
+@media (min-width: 760px) { .galerie { grid-template-columns: repeat(3, 1fr); gap: var(--e-3); } }
+.galerie figure { position: relative; border-radius: var(--rayon-petit); overflow: hidden; background: var(--lac-100); aspect-ratio: 1; }
+.galerie button { all: unset; display: block; width: 100%; height: 100%; cursor: zoom-in; }
+.galerie img, .galerie video { width: 100%; height: 100%; object-fit: cover; }
+.galerie figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--e-4) var(--e-3) var(--e-2); background: linear-gradient(transparent, var(--voile-legende)); color: var(--sur-sombre); font-size: var(--t-etiquette); }
+.galerie .video-marque { position: absolute; top: var(--e-2); left: var(--e-2); background: var(--sombre); color: var(--sur-sombre); font-size: var(--t-etiquette); font-weight: 600; padding: 2px 8px; border-radius: var(--rayon-petit); }
+.vide { border: 2px dashed var(--bordure-champ); border-radius: var(--rayon-grand); padding: var(--e-6) var(--e-4); text-align: center; display: grid; gap: var(--e-3); justify-items: center; }
+.vide svg { width: 56px; height: 56px; color: var(--lac-500); }
+.vide p { color: var(--texte-doux); max-width: 46ch; }
+.visionneuse { border: 0; padding: 0; background: transparent; max-width: min(1000px, 94vw); max-height: 92vh; }
+.visionneuse::backdrop { background: var(--voile); }
+.visionneuse img { max-height: 84vh; border-radius: var(--rayon-petit); margin: 0 auto; }
+.visionneuse p { color: var(--sur-sombre); text-align: center; margin-top: var(--e-2); font-size: var(--t-petit); }
+.visionneuse .fermer { position: fixed; top: var(--e-3); right: var(--e-3); width: 48px; height: 48px; border-radius: var(--rayon-rond); border: 0; background: var(--sur-sombre); color: var(--sombre); font-size: 26px; cursor: pointer; }
+
+/* ---------- Questions fréquentes ---------- */
+.faq { border-top: var(--trait); max-width: 820px; }
+.faq details { border-bottom: var(--trait); }
+.faq summary { list-style: none; cursor: pointer; padding: var(--e-4) 0; display: flex; justify-content: space-between; align-items: center; gap: var(--e-3); font-family: var(--police-titre); font-size: var(--t-h4); font-weight: 500; color: var(--titre); line-height: 1.3; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--bordure-champ); border-radius: var(--rayon-rond); font-family: var(--police-texte); color: var(--lien); font-size: 20px; }
+.faq details[open] summary::after { content: "–"; }
+.faq details > div { padding: 0 0 var(--e-4); color: var(--texte-doux); max-width: 64ch; display: grid; gap: var(--e-2); }
+
+/* ---------- Formulaire de réservation (vers WhatsApp) ---------- */
+.reservation { background: var(--surface); border: var(--trait); border-radius: var(--rayon-grand); padding: var(--e-4); display: grid; gap: var(--e-4); }
+@media (min-width: 760px) { .reservation { padding: var(--e-5); } .reservation .duo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-4); } }
+.reservation .duo { display: grid; gap: var(--e-4); }
+.champ { display: grid; gap: 6px; }
+.champ label { font-weight: 600; font-size: var(--t-petit); color: var(--titre); }
+.champ input, .champ select, .champ textarea { width: 100%; min-height: 50px; padding: 0 var(--e-3); border: 1px solid var(--bordure-champ); border-radius: var(--rayon-petit); background: var(--fond); font: 400 var(--t-corps) var(--police-texte); color: var(--texte); }
+.champ textarea { padding: var(--e-3); min-height: 96px; resize: vertical; }
+.champ small { font-size: var(--t-etiquette); color: var(--texte-doux); }
+.champ input:focus-visible, .champ select:focus-visible, .champ textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
+.champ.erreur input, .champ.erreur select { border: 2px solid var(--erreur); }
+.champ .msg-erreur { color: var(--erreur); font-weight: 600; font-size: var(--t-etiquette); }
+.mention { font-size: var(--t-etiquette); color: var(--texte-doux); }
+
+/* ---------- Infos pratiques ---------- */
+.infos { display: grid; gap: var(--e-4); }
+@media (min-width: 760px) { .infos { grid-template-columns: repeat(3, 1fr); } }
+.info { display: grid; gap: var(--e-2); align-content: start; padding-top: var(--e-4); border-top: 3px solid var(--titre); }
+.info h3 { font-size: var(--t-h4); }
+.info p, .info li { color: var(--texte-doux); }
+.info ul { list-style: none; padding: 0; display: grid; gap: var(--e-1); }
+.info a { font-weight: 600; }
+.sombre .info { border-top-color: var(--action); }
+
+/* ---------- En-tête de page intérieure ---------- */
+.page-tete { padding: var(--e-5) 0 var(--e-5); border-bottom: var(--trait); }
+.page-tete .conteneur { display: grid; gap: var(--e-3); }
+@media (min-width: 760px) { .page-tete { padding: var(--e-6) 0; } }
+
+/* ---------- Bandeau du soir ---------- */
+.soir .conteneur { display: grid; gap: var(--e-4); }
+@media (min-width: 900px) { .soir .conteneur { grid-template-columns: 1.4fr 1fr; align-items: end; } .soir .boutons { justify-content: flex-end; } }
+
+/* ---------- Pied de page ---------- */
+.pied { background: var(--sombre); color: var(--sur-sombre-doux); padding: var(--e-6) 0 var(--e-4); font-size: var(--t-petit); border-top: 1px solid var(--lac-700); }
+.pied-grille { display: grid; gap: var(--e-5); }
+@media (min-width: 760px) { .pied-grille { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--e-5); } }
+.pied .marque { color: var(--sur-sombre); }
+.pied .slogan { font-family: var(--police-titre); font-style: italic; font-size: 20px; color: var(--sur-sombre); margin-top: var(--e-3); }
+.pied h2 { font-family: var(--police-texte); font-size: var(--t-etiquette); letter-spacing: .14em; text-transform: uppercase; color: var(--sur-sombre-doux); font-weight: 600; margin-bottom: var(--e-3); }
+.pied ul { list-style: none; padding: 0; display: grid; gap: var(--e-1); }
+.pied a { color: var(--sur-sombre); text-decoration: none; display: inline-flex; min-height: 32px; align-items: center; }
+.pied a:hover { text-decoration: underline; }
+.pied a.credit { display: inline; min-height: 0; text-decoration: underline; color: var(--action); }
+.copyright { margin-top: var(--e-5); padding-top: var(--e-4); border-top: 1px solid var(--lac-700); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--e-2); font-size: var(--t-etiquette); }
+
+/* ---------- Bouton WhatsApp flottant ---------- */
+.wa-flottant { position: fixed; right: var(--e-3); bottom: var(--e-3); z-index: 60; display: inline-flex; align-items: center; gap: var(--e-2); min-height: 56px; padding: 0 var(--e-4) 0 var(--e-3); border-radius: var(--rayon-rond); background: var(--foret); color: var(--sable-0); font-weight: 600; font-size: var(--t-petit); text-decoration: none; border: 2px solid var(--sable-0); }
+.wa-flottant svg { width: 26px; height: 26px; }
+.wa-flottant:hover { background: var(--lac-700); }
+@media (max-width: 479px) { .wa-flottant span { display: none; } .wa-flottant { padding: 0; width: 60px; justify-content: center; } }
+body { padding-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
