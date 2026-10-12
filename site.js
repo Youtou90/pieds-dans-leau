@@ -240,7 +240,7 @@
   function chargerDonnees() {
     if (!SB) { rendreDonnees(); return; }
     var demandes = [lireTable("plats", "select=nom,categorie,description,prix,photo,disponible&order=ordre.asc,cree_le.asc")];
-    if (document.getElementById("galerie")) demandes.push(lireTable("galerie", "select=type,fichier,legende&order=ordre.asc,cree_le.desc"));
+    demandes.push(lireTable("galerie", "select=type,fichier,legende&order=ordre.asc,cree_le.desc"));
     avecDelai(Promise.all(demandes), 8000).then(function (res) {
       C.carte = res[0];
       if (res[1]) C.galerie = res[1];
@@ -346,7 +346,207 @@
     }
   }
 
+    construireMega();
   }
+
+  /* ---------- Méga-menu : l'aperçu de chaque rubrique au survol ---------- */
+  function construireMega() {
+    var entete = document.querySelector(".entete");
+    var liens = document.querySelectorAll(".nav ul a");
+    if (!entete || !liens.length) return;
+    var plats = C.carte || [];
+    var cles = Object.keys(C.categories || {});
+    var photos = (C.galerie || []).filter(function (g) { return g.type !== "video"; });
+    var etat = etatOuverture();
+    var fleche = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    var I = {
+      pirogue: '<path d="M3 15c3 2 15 2 18 0l-2 3H5l-2-3Zm9-9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-1 1h2l1 7h-4l1-7Zm6-3-6 15"/>',
+      fete: '<path d="M5 21h14M6 21v-6h12v6M8 15v-3h8v3M10 12V9M14 12V9M10 6.5c0-1 .5-1.5 0-2.5M14 6.5c0-1 .5-1.5 0-2.5"/>',
+      groupe: '<path d="M4 10h16v5H4zM6 7.5a1.5 1.5 0 1 0 0-.01M12 7.5a1.5 1.5 0 1 0 0-.01M18 7.5a1.5 1.5 0 1 0 0-.01M6 18.5a1.5 1.5 0 1 0 0-.01M12 18.5a1.5 1.5 0 1 0 0-.01M18 18.5a1.5 1.5 0 1 0 0-.01"/>',
+      tel: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+      lieu: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
+      photo: '<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 8"/>'
+    };
+    function ico(n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[n] + "</svg>"; }
+    function pied(texte, href) { return '<a class="mega-pied" href="' + href + '">' + texte + fleche + "</a>"; }
+
+    function miniPlat(p) {
+      var vignette = p.photo ? '<img class="mega-plat-ico" src="' + echapper(p.photo) + '" alt="" loading="lazy">'
+        : '<span class="mega-plat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (icones[p.categorie] || icones.pays) + '</svg></span>';
+      return '<div class="mega-plat' + (p.disponible ? "" : " epuise") + '">' + vignette +
+        '<div class="mega-plat-texte"><b>' + echapper(p.nom) + "</b><small>" + echapper(p.description) + "</small></div>" +
+        '<div class="mega-plat-droite">' + (p.prix ? '<span class="prix">' + echapper(p.prix) + "</span>" : "") +
+        (p.disponible ? '<div data-zone-quantite="' + echapper(p.nom) + '">' + htmlQuantite(p.nom) + "</div>" : '<span class="etiquette e-epuise">Épuisé</span>') +
+        "</div></div>";
+    }
+    var catAvecPlats = cles.filter(function (k) { return plats.some(function (p) { return p.categorie === k; }); });
+    var panneaux = {
+      carte:
+        '<div class="mega-grille mega-carte">' +
+        '<div class="mega-col-gauche"><span class="surtitre">La carte du jour</span>' +
+        '<div class="mega-cats" role="tablist">' + catAvecPlats.map(function (k, i) {
+          var n = plats.filter(function (p) { return p.categorie === k; });
+          var dispo = n.filter(function (p) { return p.disponible; }).length;
+          return '<button type="button" class="mega-cat" data-cat="' + k + '" aria-selected="' + (i === 0) + '">' +
+            echapper(C.categories[k]) + "<small>" + dispo + "/" + n.length + " disponible" + (dispo > 1 ? "s" : "") + "</small></button>";
+        }).join("") + "</div>" + pied("Toute la carte", "carte.html") + "</div>" +
+        '<div class="mega-plats">' + catAvecPlats.map(function (k, i) {
+          return '<div class="mega-liste-plats" data-liste="' + k + '"' + (i === 0 ? "" : " hidden") + ">" +
+            plats.filter(function (p) { return p.categorie === k; }).map(miniPlat).join("") + "</div>";
+        }).join("") + "</div>" +
+        '<a class="mega-vedette" href="carte.html#cat-poissons"><img src="images/scene.svg" alt="">' +
+        '<span class="surtitre">La spécialité</span><b>Le poisson du lac, braisé tout frais</b><small>Pêché sur place, servi les pieds dans l\'eau.</small>' +
+        '<span class="mega-lien">Voir les poissons' + fleche + '</span></a></div>',
+
+      activites:
+        '<div class="mega-grille mega-trois">' +
+        [["pirogue", "Balade en pirogue", "Une promenade sur le lac, avant ou après le repas.", "activites.html#pirogue"],
+         ["fete", "Anniversaires", "Fêter au bord de l'eau, en famille ou entre amis.", "activites.html#anniversaires"],
+         ["groupe", "Groupes et entreprises", "L'espace rien que pour vous : repas d'équipe, séminaires.", "activites.html#entreprises"]
+        ].map(function (a) {
+          return '<a class="mega-tuile" href="' + a[3] + '"><span class="mega-ico">' + ico(a[0]) + "</span><b>" + a[1] + "</b><small>" + a[2] + "</small>" +
+            '<span class="mega-lien">Découvrir' + fleche + "</span></a>";
+        }).join("") + "</div>",
+
+      galerie: photos.length
+        ? '<div class="mega-grille mega-photos">' + photos.slice(0, 4).map(function (g) {
+            return '<a href="galerie.html" class="mega-vignette"><img src="' + echapper(g.fichier) + '" alt="' + echapper(g.legende) + '" loading="lazy">' +
+              (g.legende ? "<span>" + echapper(g.legende) + "</span>" : "") + "</a>";
+          }).join("") + "</div>" + pied("Voir les " + (C.galerie || []).length + " photos et vidéos", "galerie.html")
+        : '<div class="mega-grille mega-deux"><img class="mega-scene" src="images/scene.svg" alt="">' +
+          '<div class="mega-texte"><span class="surtitre">Galerie</span><h3>Les photos du lac arrivent bientôt</h3>' +
+          "<p>Les tables les pieds dans l'eau, les pirogues, le poisson braisé et les couchers de soleil, en images.</p>" +
+          pied("Ouvrir la galerie", "galerie.html") + "</div></div>",
+
+      questions:
+        '<div class="mega-grille mega-trois">' +
+        [["Quels sont vos horaires ?", (C.horaires || "") + "."],
+         ["Faut-il réserver ?", "Conseillé pour les groupes et le week-end : écrivez-nous sur WhatsApp."],
+         ["Peut-on faire de la pirogue ?", "Oui, une balade sur le lac avant ou après le repas."]
+        ].map(function (q) {
+          return '<a class="mega-question" href="questions.html"><b>' + q[0] + "</b><small>" + echapper(q[1]) + "</small></a>";
+        }).join("") + "</div>" + pied("Toutes les questions", "questions.html"),
+
+      lieu:
+        '<div class="mega-grille mega-deux"><img class="mega-scene" src="images/scene.svg" alt="">' +
+        '<div class="mega-texte"><span class="surtitre">Le lieu</span><h3>Un restaurant en plein air, au bord du lac</h3>' +
+        "<p>Au Camp-SIC, à Bertoua. Les tables sont au bord de l'eau : on garde les pieds au frais pendant le repas.</p>" +
+        '<ul class="mega-puces"><li>Le poisson du lac, tout frais</li><li>Le calme et la fraîcheur</li><li>Près de la route et du centre hospitalier</li></ul>' +
+        pied("Découvrir le lieu", "a-propos.html") + "</div></div>",
+
+      contact:
+        '<div class="mega-grille mega-contact">' +
+        '<div class="mega-texte"><span class="statut ' + (etat.ouvert ? "est-ouvert" : "est-ferme") + '" data-ouverture>' + etat.texte + "</span>" +
+        "<h3>" + echapper(C.horaires || "") + "</h3><p>" + echapper(C.adresse || "") + "</p>" +
+        '<div class="boutons"><a class="bouton b-action" href="contact.html#reserver">Réserver une table</a>' +
+        '<a class="bouton b-second" target="_blank" rel="noopener" href="' + echapper(C.carteLien || "#") + '">' + ico("lieu") + "Itinéraire</a></div></div>" +
+        '<div class="mega-raccourcis">' +
+        '<a href="tel:' + echapper(C.telephone) + '"><span class="mega-ico">' + ico("tel") + "</span><b>Appeler</b><small>" + echapper(C.telephoneAffiche) + "</small></a>" +
+        '<a target="_blank" rel="noopener" href="' + lienWhatsApp("Bonjour Pieds dans l'eau !") + '"><span class="mega-ico wa">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>' +
+        "</span><b>WhatsApp</b><small>" + echapper(C.whatsappAffiche) + "</small></a></div></div>"
+    };
+    var parLien = { "carte.html": "carte", "activites.html": "activites", "galerie.html": "galerie", "questions.html": "questions", "a-propos.html": "lieu", "contact.html": "contact" };
+    var resumes = {
+      carte: plats.filter(function (p) { return p.disponible; }).length + " plats disponibles aujourd'hui",
+      activites: "Pirogue, anniversaires, entreprises",
+      galerie: photos.length ? (C.galerie || []).length + " photos et vidéos" : "Le lac en images",
+      questions: "Horaires, réservation, accès",
+      lieu: "Au bord du lac, Camp-SIC",
+      contact: etat.texte + " · réserver"
+    };
+
+    var mega = document.createElement("div");
+    mega.className = "mega";
+    mega.innerHTML = '<div class="mega-coque"><div class="conteneur mega-interieur">' +
+      Object.keys(panneaux).map(function (k) {
+        return '<section class="mega-panneau" id="mega-' + k + '" data-panneau="' + k + '" aria-hidden="true">' + panneaux[k] + "</section>";
+      }).join("") + "</div></div>";
+    entete.appendChild(mega);
+    var voile = document.createElement("div");
+    voile.className = "mega-voile";
+    document.body.appendChild(voile);
+    var coque = mega.querySelector(".mega-coque");
+
+    var ordre = Object.keys(panneaux);
+    var actif = null, minuteurOuvrir, minuteurFermer;
+    var survol = window.matchMedia("(hover: hover) and (min-width: 1040px)");
+
+    function ouvrir(cle) {
+      clearTimeout(minuteurFermer);
+      if (actif === cle) return;
+      var precedent = actif;
+      actif = cle;
+      var sens = precedent ? (ordre.indexOf(cle) > ordre.indexOf(precedent) ? "droite" : "gauche") : "";
+      mega.querySelectorAll(".mega-panneau").forEach(function (p) {
+        var estActif = p.getAttribute("data-panneau") === cle;
+        p.classList.toggle("actif", estActif);
+        p.setAttribute("aria-hidden", estActif ? "false" : "true");
+        p.classList.remove("depuis-droite", "depuis-gauche");
+        if (estActif && sens) { void p.offsetWidth; p.classList.add("depuis-" + sens); }
+      });
+      liens.forEach(function (a) {
+        var k = parLien[a.getAttribute("href")];
+        if (k) a.setAttribute("aria-expanded", k === cle ? "true" : "false");
+        a.classList.toggle("survole", k === cle);
+      });
+      var p = mega.querySelector('[data-panneau="' + cle + '"]');
+      coque.style.height = p.offsetHeight + "px";
+      mega.classList.add("ouvert");
+      voile.classList.add("visible");
+    }
+    function fermer() {
+      actif = null;
+      coque.style.height = "0px";
+      mega.classList.remove("ouvert");
+      voile.classList.remove("visible");
+      liens.forEach(function (a) { a.classList.remove("survole"); if (a.hasAttribute("aria-expanded")) a.setAttribute("aria-expanded", "false"); });
+    }
+    function fermerBientot() { clearTimeout(minuteurOuvrir); minuteurFermer = setTimeout(fermer, 220); }
+
+    liens.forEach(function (a) {
+      var k = parLien[a.getAttribute("href")];
+      var resume = document.createElement("small");
+      resume.className = "nav-resume";
+      resume.textContent = k ? resumes[k] : "Restaurant au bord du lac";
+      a.appendChild(resume);
+      if (!k) {
+        a.addEventListener("mouseenter", function () { if (survol.matches) fermerBientot(); });
+        return;
+      }
+      a.setAttribute("aria-controls", "mega-" + k);
+      a.setAttribute("aria-expanded", "false");
+      a.addEventListener("mouseenter", function () {
+        if (!survol.matches) return;
+        clearTimeout(minuteurOuvrir);
+        minuteurOuvrir = setTimeout(function () { ouvrir(k); }, actif ? 0 : 90);
+      });
+      a.addEventListener("mouseleave", function () { if (survol.matches) { clearTimeout(minuteurOuvrir); fermerBientot(); } });
+      a.addEventListener("focus", function () { if (survol.matches) ouvrir(k); });
+    });
+    mega.addEventListener("mouseenter", function () { clearTimeout(minuteurFermer); });
+    mega.addEventListener("mouseleave", fermerBientot);
+    document.querySelector(".nav .bouton") && document.querySelector(".nav .bouton").addEventListener("mouseenter", function () { if (survol.matches) fermerBientot(); });
+    voile.addEventListener("mouseenter", fermerBientot);
+    voile.addEventListener("click", fermer);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && actif) { var k = actif; fermer(); var a = document.querySelector('.nav ul a[aria-controls="mega-' + k + '"]'); if (a) a.focus(); } });
+    document.addEventListener("focusin", function (e) { if (actif && !entete.contains(e.target)) fermer(); });
+    window.addEventListener("scroll", function () { if (actif && window.scrollY > 400) fermerBientot(); }, { passive: true });
+
+    /* Dans le panneau « La carte », survoler une catégorie change les plats montrés */
+    var cats = mega.querySelectorAll(".mega-cat");
+    function choisirCat(b) {
+      cats.forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+      mega.querySelectorAll(".mega-liste-plats").forEach(function (l) { l.hidden = l.getAttribute("data-liste") !== b.getAttribute("data-cat"); });
+      if (actif === "carte") coque.style.height = mega.querySelector('[data-panneau="carte"]').offsetHeight + "px";
+    }
+    cats.forEach(function (b) {
+      b.addEventListener("mouseenter", function () { choisirCat(b); });
+      b.addEventListener("focus", function () { choisirCat(b); });
+      b.addEventListener("click", function () { choisirCat(b); });
+    });
+  }
+
   chargerDonnees();
 
   /* ---------- Réservation : enregistrée dans Supabase + message WhatsApp ---------- */
