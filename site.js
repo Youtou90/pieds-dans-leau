@@ -226,6 +226,31 @@
       '<div class="plat-pied">' + pied + "</div></div></article>";
   }
 
+  /* ---------- Données : Supabase si configuré, sinon contenu.js ---------- */
+  var SB = C.supabaseUrl && C.supabaseCle && C.supabaseUrl.indexOf("supabase.co") > 0;
+  // La clé publique suffit dans « apikey » (compatible avec les clés anon et publishable)
+  function enTetes() { return { apikey: C.supabaseCle }; }
+  function avecDelai(promesse, ms) {
+    return Promise.race([promesse, new Promise(function (_, rejet) { setTimeout(function () { rejet(new Error("délai")); }, ms); })]);
+  }
+  function lireTable(table, requete) {
+    return fetch(C.supabaseUrl + "/rest/v1/" + table + "?" + requete, { headers: enTetes() })
+      .then(function (r) { if (!r.ok) throw new Error(table + " " + r.status); return r.json(); });
+  }
+  function chargerDonnees() {
+    if (!SB) { rendreDonnees(); return; }
+    var demandes = [lireTable("plats", "select=nom,categorie,description,prix,photo,disponible&order=ordre.asc,cree_le.asc")];
+    if (document.getElementById("galerie")) demandes.push(lireTable("galerie", "select=type,fichier,legende&order=ordre.asc,cree_le.desc"));
+    avecDelai(Promise.all(demandes), 8000).then(function (res) {
+      C.carte = res[0];
+      if (res[1]) C.galerie = res[1];
+    }).catch(function (e) {
+      if (window.console) console.warn("Carte en ligne indisponible, version locale affichée :", e.message);
+    }).then(rendreDonnees);
+  }
+
+  function rendreDonnees() {
+  nettoyerPanier();
   var zoneCarte = document.getElementById("carte");
   if (zoneCarte && C.carte) {
     var filtres = document.getElementById("filtres");
@@ -321,7 +346,10 @@
     }
   }
 
-  /* ---------- Réservation : prépare un message WhatsApp ---------- */
+  }
+  chargerDonnees();
+
+  /* ---------- Réservation : enregistrée dans Supabase + message WhatsApp ---------- */
   var form = document.getElementById("form-resa");
   if (form) {
     var date = form.querySelector("#resa-date");
@@ -342,11 +370,31 @@
       var d = v("resa-date") ? new Date(v("resa-date") + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }) : "";
       var texte = "Bonjour Pieds dans l'eau ! Je souhaite réserver une table.\n" +
         "Nom : " + v("resa-nom") + "\n" +
+        (v("resa-tel") ? "Téléphone : " + v("resa-tel") + "\n" : "") +
         "Date : " + d + (v("resa-heure") ? " vers " + v("resa-heure") : "") + "\n" +
         "Nombre de personnes : " + v("resa-personnes") +
         (v("resa-occasion") ? "\nOccasion : " + v("resa-occasion") : "") +
         (v("resa-message") ? "\nPrécisions : " + v("resa-message") : "");
+      // WhatsApp s'ouvre tout de suite (sinon le navigateur bloque la fenêtre)
       window.open(lienWhatsApp(texte), "_blank", "noopener");
+
+      var retour = document.getElementById("resa-retour");
+      if (!SB) return;
+      fetch(C.supabaseUrl + "/rest/v1/reservations", {
+        method: "POST",
+        keepalive: true,
+        headers: Object.assign({ "Content-Type": "application/json", Prefer: "return=minimal" }, enTetes()),
+        body: JSON.stringify({
+          nom: v("resa-nom"), telephone: v("resa-tel"), date_resa: v("resa-date"), heure: v("resa-heure"),
+          personnes: v("resa-personnes"), occasion: v("resa-occasion"), message: v("resa-message")
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        if (retour) { retour.className = "message m-succes"; retour.textContent = "Votre demande est enregistrée. Envoyez aussi le message WhatsApp qui vient de s'ouvrir : nous vous confirmons rapidement."; retour.hidden = false; }
+        form.reset();
+      }).catch(function () {
+        if (retour) { retour.className = "message m-attention"; retour.textContent = "Votre demande n'a pas pu être enregistrée sur le site. Envoyez le message WhatsApp qui s'est ouvert, ou appelez-nous : nous la noterons."; retour.hidden = false; }
+      });
     });
   }
 })();

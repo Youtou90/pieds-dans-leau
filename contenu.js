@@ -6,6 +6,13 @@
 
 window.CONTENU = {
 
+  /* ---------- Base en ligne (Supabase) ----------
+     Une fois rempli, la carte et la galerie viennent de la page /admin
+     et les listes ci-dessous ne servent plus que de secours.
+     Ces deux valeurs sont publiques par nature (clé « anon / publishable »). */
+  supabaseUrl: "https://jjryipxufpucfxzgmski.supabase.co",
+  supabaseCle: "sb_publishable_LTcSkyGX6VkaOZmZj1ZEcg_JfW667t9",
+
   /* ---------- Coordonnées ---------- */
   whatsapp: "237691256821",          // sans + ni espaces
   telephone: "+237659937890",

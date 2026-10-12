@@ -1,0 +1,78 @@
+/* Pieds dans l'eau : espace de gestion. N'emploie que les variables de tokens.css. */
+
+.admin .entete .nav-bouton { display: inline-flex; }
+.admin-page { padding-top: var(--e-4); padding-bottom: var(--e-7); max-width: 880px; }
+.admin-carte { background: var(--surface); border: var(--trait); border-radius: var(--rayon-grand); padding: var(--e-4); display: grid; gap: var(--e-3); }
+.connexion { max-width: 440px; margin: var(--e-5) auto 0; }
+.connexion form { display: grid; gap: var(--e-3); margin-top: var(--e-2); }
+.texte-doux { color: var(--texte-doux); }
+.admin h1 { font-size: var(--t-h2); }
+.bouton.petit { min-height: 44px; padding: 0 var(--e-3); font-size: var(--t-petit); }
+
+/* Onglets */
+.onglets { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-1); background: var(--fond-alt); padding: var(--e-1); border-radius: var(--rayon-petit); margin-bottom: var(--e-4); position: sticky; top: 76px; z-index: 10; }
+.onglets button { min-height: 48px; border: 0; border-radius: var(--rayon-petit); background: transparent; font: 600 var(--t-petit)/1.1 var(--police-texte); color: var(--texte-doux); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.onglets button[aria-selected="true"] { background: var(--surface); color: var(--titre); box-shadow: inset 0 -3px 0 var(--action); }
+.pastille-compte { min-width: 22px; height: 22px; padding: 0 6px; border-radius: var(--rayon-rond); background: var(--action); color: var(--sur-action); font-size: 12px; display: inline-grid; place-items: center; }
+.panneau-tete { display: flex; justify-content: space-between; align-items: center; gap: var(--e-3); margin-bottom: var(--e-3); }
+.annonce { position: fixed; left: 50%; bottom: var(--e-4); transform: translateX(-50%); z-index: 90; background: var(--sombre); color: var(--sur-sombre); padding: var(--e-3) var(--e-4); border-radius: var(--rayon-petit); font-size: var(--t-petit); font-weight: 600; max-width: calc(100% - 32px); animation: fondu 200ms ease; }
+.annonce.erreur { background: var(--erreur); }
+
+/* Réservations */
+.liste-admin { display: grid; gap: var(--e-3); }
+.resa { background: var(--surface); border: var(--trait); border-left: 4px solid var(--action); border-radius: var(--rayon-petit); padding: var(--e-3) var(--e-4); display: grid; gap: var(--e-2); }
+.resa.confirmee { border-left-color: var(--foret); }
+.resa.annulee { border-left-color: var(--sable-400); opacity: .8; }
+.resa-tete { display: flex; justify-content: space-between; align-items: baseline; gap: var(--e-3); flex-wrap: wrap; }
+.resa-tete h2 { font-size: var(--t-h4); }
+.resa-quand { font-weight: 600; color: var(--lien); font-size: var(--t-petit); }
+.resa-details { display: flex; flex-wrap: wrap; gap: var(--e-1) var(--e-3); font-size: var(--t-petit); color: var(--texte-doux); }
+.resa-details b { color: var(--texte); font-weight: 600; }
+.resa-message { font-size: var(--t-petit); background: var(--fond); border-radius: var(--rayon-petit); padding: var(--e-2) var(--e-3); color: var(--texte); }
+.resa-actions { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-1); }
+.resa-actions .bouton { min-height: 44px; padding: 0 var(--e-3); font-size: var(--t-petit); }
+.resa-recu { font-size: var(--t-etiquette); color: var(--texte-doux); }
+.vide-admin { text-align: center; color: var(--texte-doux); padding: var(--e-5) var(--e-3); border: 2px dashed var(--bordure); border-radius: var(--rayon-grand); }
+
+/* La carte */
+.groupe-plats + .groupe-plats { margin-top: var(--e-4); }
+.groupe-plats h2 { font-size: var(--t-h4); margin-bottom: var(--e-2); }
+.ligne-plat { display: grid; grid-template-columns: 52px 1fr auto; gap: var(--e-3); align-items: center; padding: var(--e-3) 0; border-bottom: var(--trait); }
+.ligne-plat .vignette { width: 52px; height: 52px; border-radius: var(--rayon-petit); background: var(--lac-100); object-fit: cover; display: block; }
+.ligne-plat .infos-plat { min-width: 0; }
+.ligne-plat .infos-plat b { display: block; color: var(--titre); }
+.ligne-plat .infos-plat small { color: var(--texte-doux); font-size: var(--t-etiquette); }
+.ligne-plat .infos-plat button { all: unset; cursor: pointer; display: block; }
+.ligne-plat .infos-plat button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.ligne-plat .modifier { font-size: var(--t-etiquette); color: var(--lien); font-weight: 600; text-decoration: underline; }
+.ligne-plat.epuise .infos-plat b { color: var(--texte-doux); text-decoration: line-through; }
+
+/* Interrupteur */
+.interrupteur-ligne { display: inline-flex; align-items: center; gap: var(--e-2); font-weight: 600; font-size: var(--t-petit); cursor: pointer; min-height: 44px; }
+.interrupteur-ligne input, .bascule input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.interrupteur { width: 52px; height: 30px; border-radius: var(--rayon-rond); background: var(--sable-200); position: relative; transition: background-color var(--duree); flex: none; }
+.interrupteur::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--surface); transition: transform var(--duree); border: 1px solid var(--bordure-champ); }
+input:checked + .interrupteur { background: var(--foret); }
+input:checked + .interrupteur::after { transform: translateX(22px); border-color: var(--foret); }
+input:focus-visible + .interrupteur { outline: 3px solid var(--focus); outline-offset: 2px; }
+.bascule { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; }
+
+/* Fiche plat */
+.duo-admin { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); }
+.apercu-photo { display: flex; align-items: center; gap: var(--e-3); }
+.apercu-photo img { width: 96px; height: 72px; object-fit: cover; border-radius: var(--rayon-petit); }
+.danger { color: var(--erreur); justify-self: center; background: none; border: 0; font: 600 var(--t-petit) var(--police-texte); cursor: pointer; }
+#form-plat { display: grid; gap: var(--e-3); }
+
+/* Galerie */
+.depot { margin-bottom: var(--e-4); }
+.depot input[type="file"] { padding: var(--e-3) var(--e-2); min-height: 0; }
+.progression { height: 8px; border-radius: var(--rayon-rond); background: var(--sable-200); overflow: hidden; }
+.progression span { display: block; height: 100%; width: 0; background: var(--foret); transition: width 200ms ease; }
+.grille-galerie { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--e-3); }
+@media (min-width: 640px) { .grille-galerie { grid-template-columns: repeat(3, 1fr); } }
+.element-galerie { background: var(--surface); border: var(--trait); border-radius: var(--rayon-petit); overflow: hidden; display: grid; }
+.element-galerie img, .element-galerie video { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--lac-100); }
+.element-galerie .pied-element { padding: var(--e-2); display: grid; gap: var(--e-1); }
+.element-galerie input { width: 100%; min-height: 40px; border: 1px solid var(--bordure); border-radius: var(--rayon-petit); padding: 0 var(--e-2); font: 400 var(--t-petit) var(--police-texte); background: var(--fond); color: var(--texte); }
+.element-galerie .danger { justify-self: start; min-height: 36px; padding: 0; }

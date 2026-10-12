@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestion · Pieds dans l'eau</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0D3436">
+<link rel="icon" href="images/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="images/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&amp;family=Sora:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+
+<header class="entete">
+  <div class="conteneur">
+    <a class="marque" href="index.html" title="Voir le site"><img src="images/logo.svg" alt="" width="42" height="42"><span>Gestion</span></a>
+    <button class="nav-bouton" type="button" id="deconnexion" hidden>Se déconnecter</button>
+  </div>
+</header>
+
+<main id="contenu" class="conteneur admin-page">
+
+  <!-- Base pas encore branchée -->
+  <section id="vue-config" class="admin-carte" hidden>
+    <h1>La base n'est pas encore branchée</h1>
+    <p>Renseignez <code>supabaseUrl</code> et <code>supabaseCle</code> dans le fichier <code>contenu.js</code>, puis renvoyez-le sur GitHub.</p>
+  </section>
+
+  <!-- Connexion -->
+  <section id="vue-connexion" class="admin-carte connexion" hidden>
+    <span class="surtitre">Pieds dans l'eau</span>
+    <h1>Espace de gestion</h1>
+    <p class="texte-doux">La carte, les photos et les réservations.</p>
+    <form id="form-connexion" novalidate>
+      <div class="champ"><label for="cx-email">Email</label><input id="cx-email" type="email" autocomplete="username" required></div>
+      <div class="champ"><label for="cx-mdp">Mot de passe</label><input id="cx-mdp" type="password" autocomplete="current-password" required></div>
+      <div id="cx-erreur" class="message m-erreur" role="alert" hidden></div>
+      <button class="bouton b-action" type="submit">Se connecter</button>
+    </form>
+  </section>
+
+  <!-- Espace connecté -->
+  <section id="vue-gestion" hidden>
+    <nav class="onglets" role="tablist" aria-label="Rubriques">
+      <button role="tab" type="button" id="tab-resa" aria-controls="panneau-resa" aria-selected="true">Réservations <span class="pastille-compte" id="compte-resa" hidden></span></button>
+      <button role="tab" type="button" id="tab-carte" aria-controls="panneau-carte" aria-selected="false">La carte</button>
+      <button role="tab" type="button" id="tab-galerie" aria-controls="panneau-galerie" aria-selected="false">Galerie</button>
+    </nav>
+
+    <div id="annonce" class="annonce" role="status" aria-live="polite" hidden></div>
+
+    <!-- Réservations -->
+    <section id="panneau-resa" role="tabpanel" aria-labelledby="tab-resa">
+      <div class="panneau-tete">
+        <h1>Réservations</h1>
+        <button class="b-discret" type="button" id="actualiser-resa">Actualiser</button>
+      </div>
+      <div class="filtres" id="filtres-resa" role="group" aria-label="Filtrer les réservations">
+        <button class="filtre" type="button" data-f="a_confirmer" aria-pressed="true">À confirmer</button>
+        <button class="filtre" type="button" data-f="confirmee" aria-pressed="false">Confirmées</button>
+        <button class="filtre" type="button" data-f="annulee" aria-pressed="false">Annulées</button>
+        <button class="filtre" type="button" data-f="passees" aria-pressed="false">Passées</button>
+      </div>
+      <div id="liste-resa" class="liste-admin"></div>
+    </section>
+
+    <!-- La carte -->
+    <section id="panneau-carte" role="tabpanel" aria-labelledby="tab-carte" hidden>
+      <div class="panneau-tete">
+        <h1>La carte</h1>
+        <button class="bouton b-action petit" type="button" id="ajouter-plat">+ Ajouter un plat</button>
+      </div>
+      <p class="texte-doux">Touchez l'interrupteur pour passer un plat en « épuisé ». Le site se met à jour aussitôt.</p>
+      <div id="liste-plats"></div>
+    </section>
+
+    <!-- Galerie -->
+    <section id="panneau-galerie" role="tabpanel" aria-labelledby="tab-galerie" hidden>
+      <div class="panneau-tete"><h1>Galerie</h1></div>
+      <form id="form-galerie" class="admin-carte depot">
+        <div class="champ">
+          <label for="gal-fichiers">Photos ou vidéos</label>
+          <input id="gal-fichiers" type="file" accept="image/*,video/*" multiple required>
+          <small>Les photos sont allégées automatiquement. Préférez des vidéos courtes (moins d'une minute).</small>
+        </div>
+        <div class="champ"><label for="gal-legende">Légende (facultatif)</label><input id="gal-legende" maxlength="140" placeholder="Par exemple : le lac au coucher du soleil"></div>
+        <button class="bouton b-action" type="submit">Ajouter à la galerie</button>
+        <div class="progression" id="gal-progression" hidden><span></span></div>
+      </form>
+      <div id="liste-galerie" class="grille-galerie"></div>
+    </section>
+  </section>
+</main>
+
+<!-- Fiche d'un plat -->
+<dialog id="fiche-plat" class="fenetre-panier" aria-labelledby="fiche-titre">
+  <div class="fenetre-tete"><h2 id="fiche-titre">Plat</h2><button type="button" class="fermer-panier" data-fermer aria-label="Fermer">×</button></div>
+  <form id="form-plat" class="fenetre-corps" novalidate>
+    <div class="champ"><label for="p-nom">Nom du plat</label><input id="p-nom" maxlength="80" required><span class="msg-erreur" hidden>Indiquez le nom du plat.</span></div>
+    <div class="champ"><label for="p-cat">Catégorie</label>
+      <select id="p-cat"><option value="grillades">Grillades</option><option value="poissons">Poissons du lac</option><option value="pays">Plats du pays</option><option value="boissons">Boissons</option></select></div>
+    <div class="champ"><label for="p-desc">Description</label><textarea id="p-desc" maxlength="300"></textarea></div>
+    <div class="duo-admin">
+      <div class="champ"><label for="p-prix">Prix (facultatif)</label><input id="p-prix" maxlength="40" placeholder="3 500 FCFA"></div>
+      <div class="champ"><label for="p-ordre">Ordre d'affichage</label><input id="p-ordre" type="number" min="0" step="1" value="100"><small>Plus petit = plus haut</small></div>
+    </div>
+    <div class="champ">
+      <label for="p-photo">Photo (facultatif)</label>
+      <div class="apercu-photo" id="p-apercu" hidden><img alt=""><button type="button" class="b-discret" id="p-retirer">Retirer la photo</button></div>
+      <input id="p-photo" type="file" accept="image/*">
+    </div>
+    <label class="interrupteur-ligne"><input type="checkbox" id="p-dispo" checked> <span class="interrupteur" aria-hidden="true"></span> Disponible</label>
+    <div id="p-erreur" class="message m-erreur" role="alert" hidden></div>
+    <button class="bouton b-action" type="submit" id="p-enregistrer">Enregistrer</button>
+    <button class="b-discret danger" type="button" id="p-supprimer" hidden>Supprimer ce plat</button>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="contenu.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
