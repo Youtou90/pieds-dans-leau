@@ -62,7 +62,7 @@ p { text-wrap: pretty; }
 .b-action:active { transform: translateY(1px); }
 .b-second { background: transparent; color: var(--titre); border-color: var(--titre); }
 .b-second:hover { background: var(--titre); color: var(--sur-sombre); }
-.b-discret { color: var(--lien); padding: 0 var(--e-1); min-height: 44px; text-decoration: underline; }
+.b-discret { color: var(--lien); padding: 0 var(--e-1); min-height: 44px; text-decoration: underline; background: none; border: 0; font: 600 var(--t-petit)/1.2 var(--police-texte); cursor: pointer; display: inline-flex; align-items: center; }
 .boutons { display: flex; flex-wrap: wrap; gap: var(--e-3); align-items: center; }
 @media (max-width: 479px) { .boutons .bouton:not(.b-discret) { width: 100%; } }
 
