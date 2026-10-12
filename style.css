@@ -123,6 +123,8 @@ p { text-wrap: pretty; }
 
 .categorie + .categorie { margin-top: var(--e-5); }
 .categorie > h2 { font-size: var(--t-h3); margin-bottom: var(--e-3); display: flex; align-items: baseline; gap: var(--e-3); }
+.categorie { padding-top: var(--e-4); border-top: var(--trait); }
+@media (min-width: 1000px) { .categorie { display: grid; grid-template-columns: 240px 1fr; gap: var(--e-5); } .categorie > h2 { flex-direction: column; gap: var(--e-1); position: sticky; top: 96px; align-self: start; } }
 .categorie > h2 small { font-family: var(--police-texte); font-size: var(--t-petit); font-weight: 400; color: var(--texte-doux); }
 
 .plat { background: var(--surface); border: var(--trait); border-radius: var(--rayon-grand); overflow: hidden; display: grid; }
@@ -240,3 +242,107 @@ p { text-wrap: pretty; }
 body { padding-bottom: 0; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+/* =================== Interactions et animations =================== */
+
+/* Badge « Ouvert maintenant » */
+.statut { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: var(--t-petit); color: var(--texte-doux); }
+.statut::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--sable-400); flex: none; }
+.statut.est-ouvert { color: var(--foret); }
+.statut.est-ouvert::before { background: var(--foret); box-shadow: 0 0 0 0 var(--foret); animation: pouls 2.4s ease-out infinite; }
+.statut.est-ferme { color: var(--erreur); }
+.statut.est-ferme::before { background: var(--erreur); }
+.heros-infos .statut { width: 100%; }
+@keyframes pouls { 0% { box-shadow: 0 0 0 0 rgba(47, 124, 64, .45); } 70% { box-shadow: 0 0 0 8px rgba(47, 124, 64, 0); } 100% { box-shadow: 0 0 0 0 rgba(47, 124, 64, 0); } }
+
+/* Apparitions au défilement */
+.js .revele { opacity: 0; transform: translateY(18px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2, .7, .2, 1); }
+.js .revele.vu { opacity: 1; transform: none; }
+.atouts li.revele:nth-child(2n) { transition-delay: 80ms; }
+.grille > .revele:nth-child(2) { transition-delay: 80ms; }
+.grille > .revele:nth-child(3) { transition-delay: 160ms; }
+.grille > .revele:nth-child(4) { transition-delay: 240ms; }
+
+/* Illustration du lac vivante */
+.anim-vague { animation: houle 6s ease-in-out infinite alternate; }
+.anim-vague.inverse { animation-duration: 4.5s; animation-direction: alternate-reverse; }
+.anim-pirogue { animation: flotte 4s ease-in-out infinite; transform-origin: 300px 240px; }
+.anim-pagaie { animation: pagaie 4s ease-in-out infinite; transform-origin: 321px 219px; }
+.anim-soleil { animation: lueur 7s ease-in-out infinite alternate; transform-origin: 250px 236px; }
+.anim-reflet { animation: scintille 3s ease-in-out infinite alternate; }
+.anim-palme { animation: brise 5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+.anim-palme.lent { animation-duration: 6.5s; }
+@keyframes houle { from { transform: translateX(-14px); } to { transform: translateX(14px); } }
+@keyframes flotte { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(4px) rotate(-1.2deg); } }
+@keyframes pagaie { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(9deg); } }
+@keyframes lueur { from { transform: scale(1); } to { transform: scale(1.035); } }
+@keyframes scintille { from { opacity: 1; } to { opacity: .55; } }
+@keyframes brise { from { transform: rotate(-1.5deg); } to { transform: rotate(2deg); } }
+
+/* Changement de catégorie sur la carte */
+#carte.apparait { animation: fondu 320ms ease; }
+@keyframes fondu { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Boutons Ajouter et quantité */
+.ajouter { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 var(--e-3); border-radius: var(--rayon-petit); border: 2px solid var(--titre); background: transparent; color: var(--titre); font: 600 var(--t-petit)/1 var(--police-texte); cursor: pointer; transition: background-color var(--duree), color var(--duree); }
+.ajouter:hover { background: var(--titre); color: var(--sur-sombre); }
+.ajouter svg, .quantite svg { width: 18px; height: 18px; }
+.quantite { display: inline-flex; align-items: center; border-radius: var(--rayon-petit); background: var(--action); color: var(--sur-action); animation: fondu 200ms ease; }
+.quantite button { width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: inherit; cursor: pointer; border-radius: var(--rayon-petit); }
+.quantite button:hover { background: var(--action-survol); }
+.quantite output { min-width: 28px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Barre du panier */
+.barre-panier { position: fixed; left: var(--e-3); right: var(--e-3); bottom: var(--e-3); z-index: 70; display: flex; justify-content: center; pointer-events: none; }
+.barre-panier[hidden] { display: none; }
+.barre-panier-bouton { pointer-events: auto; width: 100%; max-width: 520px; min-height: 60px; display: flex; align-items: center; gap: var(--e-3); padding: 0 var(--e-4); border: 0; border-radius: var(--rayon-grand); background: var(--sombre); color: var(--sur-sombre); font: 600 var(--t-corps)/1.2 var(--police-texte); cursor: pointer; text-align: left; }
+.barre-panier-bouton svg { width: 24px; height: 24px; color: var(--action); flex: none; }
+.barre-panier-texte { flex: 1; }
+.barre-panier-voir { color: var(--action); font-size: var(--t-petit); white-space: nowrap; }
+.barre-panier.rebond .barre-panier-bouton { animation: rebond 420ms cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes rebond { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
+body.avec-panier .wa-flottant { bottom: calc(var(--e-3) + 72px); }
+body.avec-panier .pied { padding-bottom: 104px; }
+
+/* Fenêtre du panier */
+.fenetre-panier { border: 0; padding: 0; width: min(520px, 100%); max-width: 100%; max-height: 92vh; margin: auto auto 0; border-radius: var(--rayon-grand) var(--rayon-grand) 0 0; background: var(--fond); color: var(--texte); }
+@media (min-width: 640px) { .fenetre-panier { margin: auto; border-radius: var(--rayon-grand); } }
+.fenetre-panier[open] { animation: monte 260ms cubic-bezier(.2, .7, .2, 1); }
+@keyframes monte { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.fenetre-panier::backdrop { background: var(--voile); }
+.fenetre-tete { display: flex; justify-content: space-between; align-items: center; padding: var(--e-4) var(--e-4) var(--e-3); border-bottom: var(--trait); position: sticky; top: 0; background: var(--fond); }
+.fenetre-tete h2 { font-size: var(--t-h3); }
+.fermer-panier { width: 44px; height: 44px; border-radius: var(--rayon-rond); border: 1px solid var(--bordure-champ); background: transparent; font-size: 24px; color: var(--titre); cursor: pointer; }
+.fenetre-corps { padding: var(--e-3) var(--e-4) var(--e-4); display: grid; gap: var(--e-4); }
+.lignes-panier { list-style: none; padding: 0; }
+.lignes-panier li { display: flex; justify-content: space-between; align-items: center; gap: var(--e-3); padding: var(--e-3) 0; border-bottom: var(--trait); }
+.lignes-panier b { display: block; color: var(--titre); }
+.lignes-panier small { color: var(--lien); font-weight: 600; font-variant-numeric: tabular-nums; }
+.panier-vide { color: var(--texte-doux); justify-content: center !important; text-align: center; }
+.total-panier { display: flex; justify-content: space-between; gap: var(--e-3); font-size: var(--t-petit); color: var(--texte-doux); }
+.total-panier b { font-size: var(--t-h4); color: var(--titre); font-variant-numeric: tabular-nums; }
+.form-commande { display: grid; gap: var(--e-3); }
+.form-commande[hidden] { display: none; }
+.form-commande .vider { justify-self: center; background: none; border: 0; font: 600 var(--t-petit) var(--police-texte); cursor: pointer; }
+.choix { border: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-2); }
+.choix legend { font-weight: 600; font-size: var(--t-petit); color: var(--titre); margin-bottom: 6px; }
+.choix label { position: relative; }
+.choix input { position: absolute; opacity: 0; }
+.choix span { display: flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid var(--bordure-champ); border-radius: var(--rayon-petit); font-weight: 600; font-size: var(--t-petit); cursor: pointer; background: var(--surface); }
+.choix input:checked + span { background: var(--sombre); border-color: var(--sombre); color: var(--sur-sombre); }
+.choix input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* Visionneuse : photo précédente / suivante */
+.visionneuse .prec, .visionneuse .suiv { position: fixed; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: var(--rayon-rond); border: 0; background: var(--sur-sombre); color: var(--sombre); font-size: 30px; line-height: 1; cursor: pointer; }
+.visionneuse .prec { left: var(--e-3); }
+.visionneuse .suiv { right: var(--e-3); }
+
+/* Lien survolé dans le menu : soulignement qui glisse */
+@media (min-width: 1040px) {
+  .nav ul a { background: linear-gradient(var(--action), var(--action)) left bottom / 0 3px no-repeat; transition: background-size var(--duree) ease; }
+  .nav ul a:hover { background-size: 100% 3px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .revele { opacity: 1; transform: none; }
+  [class^="anim-"], [class*=" anim-"], .statut::before, .quantite, #carte.apparait, .fenetre-panier[open], .barre-panier.rebond .barre-panier-bouton { animation: none !important; }
+}

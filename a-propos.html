@@ -57,23 +57,25 @@
   <div class="conteneur grille g2" style="gap:var(--e-6);align-items:center">
     <div class="scene"><svg viewBox="0 0 500 400" role="img" aria-label="Illustration : le lac au coucher du soleil, une pirogue sur l'eau">
   <rect width="500" height="400" fill="#FDEBD1"/>
-  <circle cx="250" cy="236" r="104" fill="#F39C28"/>
+  <circle class="anim-soleil" cx="250" cy="236" r="104" fill="#F39C28"/>
   <path d="M0 236 C40 200 80 196 120 214 C150 186 190 190 214 236 Z" fill="#2F7C40"/>
   <path d="M300 236 C330 204 370 190 410 206 C440 194 480 200 500 214 V236 Z" fill="#2F7C40"/>
-  <path d="M30 236 V150 M30 160 q-22 -10 -36 4 M30 160 q20 -14 38 -4 M30 156 q-10 -22 -30 -24 M30 156 q14 -22 34 -20" stroke="#0D3436" stroke-width="5" fill="none" stroke-linecap="round"/>
-  <path d="M462 236 V138 M462 148 q-22 -10 -38 2 M462 148 q20 -12 38 -2 M462 144 q-12 -22 -32 -22 M462 144 q12 -24 32 -22" stroke="#0D3436" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g class="anim-palme"><path d="M30 236 V150 M30 160 q-22 -10 -36 4 M30 160 q20 -14 38 -4 M30 156 q-10 -22 -30 -24 M30 156 q14 -22 34 -20" stroke="#0D3436" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+  <g class="anim-palme lent"><path d="M462 236 V138 M462 148 q-22 -10 -38 2 M462 148 q20 -12 38 -2 M462 144 q-12 -22 -32 -22 M462 144 q12 -24 32 -22" stroke="#0D3436" stroke-width="5" fill="none" stroke-linecap="round"/></g>
   <rect y="236" width="500" height="164" fill="#17565A"/>
-  <path d="M180 252 h140 M200 266 h100 M218 280 h64 M232 294 h36" stroke="#F39C28" stroke-width="5" stroke-linecap="round"/>
-  <path d="M40 318 q15 -9 30 0 t30 0 t30 0 M330 330 q15 -9 30 0 t30 0 t30 0 t30 0 M120 362 q15 -9 30 0 t30 0 t30 0 t30 0 t30 0" stroke="#2A7F84" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M60 280 q12 -7 24 0 t24 0 M380 276 q12 -7 24 0 t24 0" stroke="#B9C9C6" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <g fill="#0D3436">
-    <path d="M226 232 Q300 250 374 232 Q366 246 352 247 L248 247 Q234 246 226 232 Z"/>
-    <circle cx="318" cy="186" r="8"/>
-    <path d="M312 197 h13 l3 35 h-19 Z"/>
-    <circle cx="268" cy="200" r="7"/>
-    <path d="M262 210 h12 l2 23 h-16 Z"/>
+  <path class="anim-reflet" d="M180 252 h140 M200 266 h100 M218 280 h64 M232 294 h36" stroke="#F39C28" stroke-width="5" stroke-linecap="round"/>
+  <g class="anim-vague"><path d="M-20 318 q15 -9 30 0 t30 0 t30 0 t30 0 M330 330 q15 -9 30 0 t30 0 t30 0 t30 0 t30 0 M120 362 q15 -9 30 0 t30 0 t30 0 t30 0 t30 0" stroke="#2A7F84" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+  <g class="anim-vague inverse"><path d="M60 280 q12 -7 24 0 t24 0 M380 276 q12 -7 24 0 t24 0" stroke="#B9C9C6" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+  <g class="anim-pirogue">
+    <g fill="#0D3436">
+      <path d="M226 232 Q300 250 374 232 Q366 246 352 247 L248 247 Q234 246 226 232 Z"/>
+      <circle cx="318" cy="186" r="8"/>
+      <path d="M312 197 h13 l3 35 h-19 Z"/>
+      <circle cx="268" cy="200" r="7"/>
+      <path d="M262 210 h12 l2 23 h-16 Z"/>
+    </g>
+    <path class="anim-pagaie" d="M342 176 L300 262" stroke="#0D3436" stroke-width="4.5" stroke-linecap="round"/>
   </g>
-  <path d="M342 176 L300 262" stroke="#0D3436" stroke-width="4.5" stroke-linecap="round"/>
 </svg></div>
     <div style="display:grid;gap:var(--e-4)">
       <h2>L'eau, la braise et le temps qui ralentit</h2>

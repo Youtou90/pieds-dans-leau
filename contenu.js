@@ -12,6 +12,7 @@ window.CONTENU = {
   telephoneAffiche: "+237 659 93 78 90",
   whatsappAffiche: "+237 691 25 68 21",
   horaires: "Tous les jours, de 8 h à minuit",   // À CONFIRMER avec les horaires exacts
+  ouverture: { debut: 8, fin: 24 },              // sert au badge « Ouvert maintenant » (heures de Bertoua)
   adresse: "Camp-SIC, quartier Nkolbikon, Bertoua",
   carteLien: "https://www.google.com/maps/search/?api=1&query=Camp+SIC+Nkolbikon+Bertoua",
 
