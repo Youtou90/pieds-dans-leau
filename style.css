@@ -452,3 +452,97 @@ body.avec-panier .pied { padding-bottom: 104px; }
   .mega-coque, .mega-panneau, .mega-panneau.actif, .mega-voile { transition: none !important; }
   .mega-panneau.depuis-droite, .mega-panneau.depuis-gauche, .mega-liste-plats { animation: none !important; }
 }
+/* =================== Habillage « terrasse du soir » =================== */
+/* Alternance de sections sombres (lac) et claires (sable), accents braise, ornements fins. */
+
+.accroche { font-family: var(--police-titre); font-style: italic; font-weight: 500; font-size: 20px; color: var(--braise-400); }
+.ornement { display: block; width: 120px; height: 12px; background:
+  linear-gradient(currentColor, currentColor) left center / 48px 1px no-repeat,
+  linear-gradient(currentColor, currentColor) right center / 48px 1px no-repeat,
+  radial-gradient(circle, currentColor 3px, transparent 3.5px) center / 12px 12px no-repeat; color: var(--braise-400); }
+.centre { text-align: center; justify-items: center; justify-content: center; margin-left: auto; margin-right: auto; }
+.section-tete.centre .chapeau { margin: 0 auto; }
+.section-tete.centre .ornement { color: var(--braise-700); }
+
+/* Bouton pastille sombre, comme « Voir toute la carte » */
+.b-sombre { background: var(--sombre); color: var(--sur-sombre); border-radius: var(--rayon-rond); }
+.b-sombre:hover { background: var(--lac-700); }
+.b-sombre svg { transition: transform var(--duree); }
+.b-sombre:hover svg { transform: translateX(4px); }
+
+/* Héros sombre */
+.heros.sombre { position: relative; overflow: hidden; }
+.heros.sombre h1 em { color: var(--braise-400); }
+.heros.sombre .heros-infos { color: var(--sur-sombre-doux); }
+.heros.sombre .heros-infos svg { color: var(--braise-400); }
+.sombre .statut { color: var(--sur-sombre-doux); }
+.sombre .statut.est-ouvert { color: var(--foret-300); }
+.sombre .statut.est-ouvert::before { background: var(--foret-300); }
+.sombre .statut.est-ferme { color: var(--erreur-100); }
+.sombre .statut.est-ferme::before { background: var(--erreur-100); }
+.scene-cadre { position: relative; padding: var(--e-3) 0 0 var(--e-3); }
+.scene-cadre::before { content: ""; position: absolute; right: -18%; top: -14%; width: 78%; aspect-ratio: 1; border-radius: 50%; background: var(--lac-700); }
+.scene-cadre .scene { position: relative; border-radius: 50% 50% var(--rayon-grand) var(--rayon-grand) / 40% 40% var(--rayon-grand) var(--rayon-grand); border: 6px solid var(--lac-700); }
+@media (min-width: 900px) { .scene-cadre::before { background: var(--braise-100); opacity: .14; } }
+
+/* Rangée des avantages */
+.section-avantages { padding: var(--e-5) 0; border-bottom: var(--trait); }
+.avantages { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--e-4) var(--e-3); text-align: center; }
+.avantages li { display: grid; justify-items: center; align-content: start; gap: var(--e-1); }
+.avantage-ico { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--bordure-champ); display: grid; place-items: center; color: var(--lac-700); margin-bottom: var(--e-2); background: var(--surface); }
+.avantage-ico svg { width: 28px; height: 28px; }
+.avantages h3 { font-size: 17px; }
+.avantages p { font-size: var(--t-petit); color: var(--texte-doux); max-width: 22ch; }
+@media (min-width: 760px) { .avantages { grid-template-columns: repeat(3, 1fr); gap: var(--e-5) var(--e-4); } }
+@media (min-width: 1100px) {
+  .avantages { grid-template-columns: repeat(6, 1fr); gap: 0; }
+  .avantages li { padding: 0 var(--e-3); border-left: var(--trait); }
+  .avantages li:first-child { border-left: 0; }
+}
+
+/* Les favoris : cartes verticales, visuel en haut, même sans photo */
+.section-favoris { background: var(--fond-alt); }
+.favoris .plat.sans-photo { grid-template-columns: 1fr; padding: 0; align-items: stretch; }
+.favoris .plat.sans-photo .plat-visuel { aspect-ratio: 4 / 3; border-radius: 0; }
+.favoris .plat.sans-photo .plat-visuel svg { width: 64px; height: 64px; }
+.favoris .plat.sans-photo .plat-corps { padding: var(--e-4); }
+.favoris .plat:nth-child(2n) .plat-visuel { background: var(--braise-100); color: var(--braise-700); }
+.favoris .plat-visuel img { transition: transform 500ms ease; }
+.favoris .plat:hover .plat-visuel img { transform: scale(1.04); }
+
+/* Bandeau de réservation */
+.bandeau-resa { display: grid; background: var(--sombre); color: var(--sur-sombre); border-radius: var(--rayon-grand); overflow: hidden; }
+.bandeau-visuel svg { width: 100%; height: 100%; min-height: 220px; }
+.bandeau-texte { display: grid; gap: var(--e-3); align-content: center; padding: var(--e-5) var(--e-4); }
+.bandeau-texte h2 { color: var(--sur-sombre); }
+.bandeau-texte p, .bandeau-texte .surtitre { color: var(--sur-sombre-doux); }
+.bandeau-texte .b-second { color: var(--sur-sombre); border-color: var(--sur-sombre); }
+.bandeau-texte .b-second:hover { background: var(--sur-sombre); color: var(--sombre); }
+.garanties { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); font-size: var(--t-petit); }
+.garanties li { display: inline-flex; align-items: center; gap: 6px; }
+.garanties svg { width: 18px; height: 18px; color: var(--braise-400); }
+@media (min-width: 900px) { .bandeau-resa { grid-template-columns: 1fr 1.15fr; } .bandeau-texte { padding: var(--e-5); } }
+
+/* Chiffres clés */
+.chiffres { list-style: none; padding: var(--e-5) 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--e-4); }
+.chiffres li { display: grid; gap: 2px; padding-left: var(--e-3); border-left: 3px solid var(--action); }
+.chiffres b { font-family: var(--police-titre); font-size: 30px; font-weight: 600; color: var(--titre); line-height: 1.1; }
+.chiffres span { font-size: var(--t-petit); color: var(--texte-doux); }
+@media (min-width: 900px) { .chiffres { grid-template-columns: repeat(4, 1fr); } }
+
+/* En-têtes des pages intérieures : bandeau sombre, comme le héros */
+.page-tete { background: var(--sombre); color: var(--sur-sombre); border-bottom: 0; }
+.page-tete h1 { color: var(--sur-sombre); }
+.page-tete .surtitre { color: var(--braise-400); }
+.page-tete .chapeau, .page-tete p { color: var(--sur-sombre-doux); }
+.page-tete a:not(.bouton) { color: var(--sur-sombre); }
+
+/* Filtres de la carte avec icône */
+.filtre { display: inline-flex; align-items: center; gap: var(--e-2); }
+.filtre svg { width: 20px; height: 20px; flex: none; }
+.filtre[aria-pressed="true"] svg { color: var(--braise-400); }
+@media (max-width: 639px) {
+  .favoris { grid-auto-flow: column; grid-auto-columns: 74%; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--e-3); scrollbar-width: none; margin: 0 calc(var(--e-3) * -1); padding: 0 var(--e-3) var(--e-2); }
+  .favoris::-webkit-scrollbar { display: none; }
+  .favoris .plat { scroll-snap-align: start; }
+}

@@ -30,6 +30,7 @@
   /* Vert forêt : gardé de PixelSavane. Nature, « disponible ». */
   --foret: #2F7C40;        /* 4.75:1 sur sable */
   --foret-100: #E1EFE3;
+  --foret-300: #9FD3AA;    /* « ouvert » sur fond lac (9.2:1) */
 
   /* Sens */
   --succes: var(--foret);

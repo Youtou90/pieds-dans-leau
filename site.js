@@ -74,7 +74,7 @@
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     elements.forEach(function (el) { obs.observe(el); });
   }
-  document.querySelectorAll(".section-tete, .atouts li, .carte, .info, .activite, .faq details, .scene, .soir .conteneur > *").forEach(function (el, i) {
+  document.querySelectorAll(".section-tete, .atouts li, .avantages li, .bandeau-resa, .chiffres li, .carte, .info, .activite, .faq details, .scene, .soir .conteneur > *").forEach(function (el, i) {
     el.classList.add("revele");
   });
   document.documentElement.classList.add("js");
@@ -267,8 +267,10 @@
       observerApparitions(zoneCarte);
     };
     if (filtres) {
-      filtres.innerHTML = '<button class="filtre" type="button" data-filtre="tout" aria-pressed="true">Tout</button>' +
-        cles.map(function (k) { return '<button class="filtre" type="button" data-filtre="' + k + '" aria-pressed="false">' + echapper(C.categories[k]) + "</button>"; }).join("");
+      var icoFiltre = function (d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>"; };
+      filtres.innerHTML = '<button class="filtre" type="button" data-filtre="tout" aria-pressed="true">' +
+        icoFiltre('<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>') + "Tout</button>" +
+        cles.map(function (k) { return '<button class="filtre" type="button" data-filtre="' + k + '" aria-pressed="false">' + icoFiltre(icones[k] || icones.pays) + echapper(C.categories[k]) + "</button>"; }).join("");
       filtres.addEventListener("click", function (e) {
         var b = e.target.closest(".filtre");
         if (!b) return;
@@ -282,7 +284,7 @@
   /* Aperçu de la carte sur l'accueil */
   var apercu = document.getElementById("apercu-carte");
   if (apercu && C.carte) {
-    apercu.innerHTML = C.carte.filter(function (p) { return p.disponible; }).slice(0, 3).map(htmlPlat).join("");
+    apercu.innerHTML = C.carte.filter(function (p) { return p.disponible; }).slice(0, 4).map(htmlPlat).join("");
     observerApparitions(apercu);
   }
   majPanier();

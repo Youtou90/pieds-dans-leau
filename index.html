@@ -41,16 +41,17 @@
       <li><a href="a-propos.html">Le lieu</a></li>
       <li><a href="contact.html">Contact</a></li>
       </ul>
-      <a class="bouton b-action" href="contact.html#reserver">Réserver une table</a>
+      <a class="bouton b-action" href="contact.html#reserver">Réserver une table<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4m6-4v4"/></svg></a>
     </nav>
   </div>
 </header>
 <main id="contenu">
-<section class="heros">
+<section class="heros sombre">
   <div class="conteneur">
     <div class="heros-texte">
-      <span class="surtitre">Restaurant au bord du lac · Bertoua</span>
+      <span class="accroche">Le lac, la braise, le temps qui ralentit</span>
       <h1>Pieds dans l'eau, <em>cœur au chaud.</em></h1>
+      <span class="ornement" aria-hidden="true"></span>
       <p class="chapeau">Au Camp-SIC, on déjeune et on dîne les pieds dans l'eau fraîche du lac. Poisson pêché sur place et braisé tout frais, grillades, plats du pays, balade en pirogue : venez en famille, entre amis ou entre collègues.</p>
       <div class="boutons">
         <a class="bouton b-action" href="contact.html#reserver">Réserver une table</a>
@@ -62,7 +63,7 @@
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Camp-SIC, Nkolbikon</span>
       </div>
     </div>
-    <div class="scene"><svg viewBox="0 0 500 400" role="img" aria-label="Illustration : le lac au coucher du soleil, une pirogue sur l'eau">
+    <div class="scene-cadre"><div class="scene"><svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration : le lac au coucher du soleil, une pirogue sur l'eau">
   <rect width="500" height="400" fill="#FDEBD1"/>
   <circle class="anim-soleil" cx="250" cy="236" r="104" fill="#F39C28"/>
   <path d="M0 236 C40 200 80 196 120 214 C150 186 190 190 214 236 Z" fill="#2F7C40"/>
@@ -83,38 +84,74 @@
     </g>
     <path class="anim-pagaie" d="M342 176 L300 262" stroke="#0D3436" stroke-width="4.5" stroke-linecap="round"/>
   </g>
-</svg></div>
+</svg></div></div>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-avantages">
   <div class="conteneur">
-    <div class="section-tete">
-      <span class="surtitre">Pourquoi on vient chez nous</span>
-      <h2>Un coin de calme au bord de l'eau, à deux pas de la ville</h2>
-    </div>
-    <ol class="atouts">
-      <li><div><h3>Les pieds dans l'eau</h3><p>Les tables sont installées au bord du lac : on mange avec les pieds dans l'eau fraîche.</p></div></li>
-      <li><div><h3>Le poisson du lac, tout frais</h3><p>Le poisson est pêché dans le lac et braisé sur place. Difficile de faire plus frais.</p></div></li>
-      <li><div><h3>La balade en pirogue</h3><p>Avant ou après le repas, une promenade sur le lac en pirogue.</p></div></li>
-      <li><div><h3>Le calme et la fraîcheur</h3><p>Loin du bruit, à l'ombre et au frais : le temps ralentit.</p></div></li>
-      <li><div><h3>Un accueil chaleureux</h3><p>On vous reçoit comme à la maison, que vous veniez à deux ou à vingt.</p></div></li>
-      <li><div><h3>Facile d'accès</h3><p>Au Camp-SIC, quartier Nkolbikon, près de la route et du plus grand centre hospitalier de l'Est-Cameroun.</p></div></li>
-    </ol>
+    <h2 class="visuellement-cache">Pourquoi on vient chez nous</h2>
+    <ul class="avantages">
+      <li><span class="avantage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 15c2 0 2-1.5 4-1.5S8 15 10 15s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M2 19c2 0 2-1.5 4-1.5S8 19 10 19s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M9 11V4m6 7V4"/></svg></span><h3>Les pieds dans l'eau</h3><p>Des tables au bord du lac, dans l'eau fraîche.</p></li>
+      <li><span class="avantage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3-4 7-5 11-4 2 .5 3.5 2 4.5 4-1 2-2.5 3.5-4.5 4-4 1-8 0-11-4Zm15.5 0L21 9v6l-2.5-3Z"/><circle cx="8" cy="11" r=".8" fill="currentColor"/></svg></span><h3>Poisson du lac</h3><p>Pêché sur place, braisé tout frais.</p></li>
+      <li><span class="avantage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h18l-2.5 4h-13L3 14Zm9-10v10m0-10 6 7h-6"/></svg></span><h3>Balade en pirogue</h3><p>Une promenade sur le lac, avant ou après.</p></li>
+      <li><span class="avantage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14Zm0 0 7-7"/></svg></span><h3>Calme et fraîcheur</h3><p>À l'ombre, loin du bruit de la ville.</p></li>
+      <li><span class="avantage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></span><h3>Accueil chaleureux</h3><p>Comme à la maison, à deux ou à vingt.</p></li>
+      <li><span class="avantage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><h3>Facile d'accès</h3><p>Camp-SIC, Nkolbikon, près de la route.</p></li>
+    </ul>
   </div>
 </section>
 
-<section class="section">
+<section class="section section-favoris">
   <div class="conteneur">
-    <div class="section-tete">
-      <span class="surtitre">À la carte</span>
-      <h2>Du lac à la braise, et les plats du pays</h2>
-      <p class="chapeau">Poisson braisé, porc braisé, grillades, ndolè, koko et boissons fraîches.</p>
+    <div class="section-tete centre">
+      <span class="surtitre">Notre carte</span>
+      <h2>Les favoris du lac</h2>
+      <span class="ornement" aria-hidden="true"></span>
     </div>
-    <div class="grille g3" id="apercu-carte"></div>
-    <div class="boutons" style="margin-top:var(--e-5)">
-      <a class="bouton b-second" href="carte.html">Toute la carte</a>
+    <div class="grille g4 favoris" id="apercu-carte"></div>
+    <div class="boutons centre" style="margin-top:var(--e-5)">
+      <a class="bouton b-sombre" href="carte.html">Voir toute la carte <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
     </div>
+  </div>
+</section>
+
+<section class="section section-resa">
+  <div class="conteneur">
+    <div class="bandeau-resa">
+      <div class="bandeau-visuel"><svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration : la terrasse au bord du lac le soir, guirlande allumée">
+        <rect width="480" height="320" fill="#0D3436"/>
+        <circle cx="390" cy="62" r="26" fill="#FDEBD1"/>
+        <path d="M0 176 C60 150 120 154 170 170 C220 146 300 148 340 168 C400 150 450 156 480 166 V190 H0 Z" fill="#17565A"/>
+        <rect y="188" width="480" height="132" fill="#17565A"/>
+        <path d="M330 206 h120 M350 222 h80 M370 238 h40" stroke="#FDEBD1" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+        <path d="M0 40 Q120 96 240 52 T480 46" stroke="#B9C9C6" stroke-width="2" fill="none"/>
+        <g fill="#F39C28"><circle cx="40" cy="58" r="7"/><circle cx="100" cy="74" r="7"/><circle cx="160" cy="76" r="7"/><circle cx="220" cy="60" r="7"/><circle cx="290" cy="46" r="7"/><circle cx="350" cy="50" r="7"/><circle cx="430" cy="47" r="7"/></g>
+        <g fill="#0D3436"><path d="M60 240 h170 v10 H60 Z"/><path d="M76 250 v52 h8 v-52 Zm130 0 v52 h8 v-52 Z"/><path d="M110 216 h10 v24 h-10 Zm60 0 h10 v24 h-10 Z"/><circle cx="145" cy="226" r="11"/></g>
+        <g fill="#F39C28"><path d="M107 214 h16 l-2 4 h-12 Z"/><path d="M167 214 h16 l-2 4 h-12 Z"/></g>
+        <path d="M30 304 q14 -8 28 0 t28 0 t28 0 M250 290 q14 -8 28 0 t28 0 t28 0 t28 0" stroke="#2A7F84" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg></div>
+      <div class="bandeau-texte">
+        <span class="surtitre">Réservez votre table</span>
+        <h2>Un bon repas mérite une table au bord de l'eau</h2>
+        <p>Ce soir ou ce week-end, à deux ou en groupe : écrivez-nous sur WhatsApp, nous confirmons votre table.</p>
+        <ul class="garanties">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Réponse rapide</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Sans frais de réservation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Groupes bienvenus</li>
+        </ul>
+        <div class="boutons">
+          <a class="bouton b-action" data-wa="Bonjour Pieds dans l'eau ! Je voudrais réserver une table." href="https://wa.me/237691256821"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>Réserver sur WhatsApp</a>
+          <a class="bouton b-second" href="tel:+237659937890">Appeler</a>
+        </div>
+      </div>
+    </div>
+    <ul class="chiffres">
+      <li><b>7 j/7</b><span>Ouvert tous les jours</span></li>
+      <li><b>8 h – 0 h</b><span>Service toute la journée</span></li>
+      <li><b>4</b><span>Familles de plats</span></li>
+      <li><b>1 lac</b><span>Et une pirogue pour le découvrir</span></li>
+    </ul>
   </div>
 </section>
 
@@ -139,19 +176,6 @@
       <div class="info"><h3>Adresse</h3><p>Camp-SIC, quartier Nkolbikon, Bertoua<br>Près de la route et du centre hospitalier.</p><a href="https://www.google.com/maps/search/?api=1&amp;query=Camp+SIC+Nkolbikon+Bertoua" target="_blank" rel="noopener">Itinéraire Google Maps →</a></div>
       <div class="info"><h3>Horaires</h3><p>Tous les jours, de 8 h à minuit.</p><p><span class="statut" data-ouverture></span></p></div>
       <div class="info"><h3>Contact</h3><ul><li><a href="tel:+237659937890">+237 659 93 78 90</a></li><li><a data-wa="Bonjour Pieds dans l'eau !" href="https://wa.me/237691256821">WhatsApp +237 691 25 68 21</a></li></ul></div>
-    </div>
-  </div>
-</section>
-<section class="section sombre soir">
-  <div class="conteneur">
-    <div style="display:grid;gap:var(--e-3)">
-      <span class="surtitre">Ce soir ou ce week-end</span>
-      <h2>On vous garde une table au bord de l'eau ?</h2>
-      <p>Écrivez-nous sur WhatsApp : nous vous répondons pour confirmer votre table, votre groupe ou votre événement.</p>
-    </div>
-    <div class="boutons">
-      <a class="bouton b-action" data-wa="Bonjour Pieds dans l'eau ! Je voudrais réserver une table." href="https://wa.me/237691256821"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>Réserver sur WhatsApp</a>
-      <a class="bouton b-second" href="tel:+237659937890"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Appeler</a>
     </div>
   </div>
 </section>
