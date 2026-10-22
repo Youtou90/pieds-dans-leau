@@ -1,85 +1,96 @@
-/* Pieds dans l'eau : jetons d'identité
-   Parti pris : une terrasse au bord du lac à Bertoua. La braise, l'eau fraîche,
-   le temps qui ralentit. Chaleureux et calme, lisible en plein soleil, jamais clinquant.
-   Charte de départ : PixelSavane (orange, vert forêt, Sora), adaptée au lieu. */
+/* Pieds dans l'eau : jetons de design (refonte d'octobre 2026)
+   Crème, terracotta et vert sauge. Titres Caprasimo, texte Figtree. */
 
 :root {
-  /* Braise : l'orange PixelSavane (#F39C28). Couleur d'action, rare. */
-  --braise-100: #FDEBD1;
-  --braise-400: #F39C28;   /* fond des boutons d'action (texte lac dessus : 6.15:1) */
-  --braise-500: #E0861A;   /* survol */
-  --braise-700: #A3530A;   /* liens et prix sur sable (5.09:1) */
+  /* Fonds et texte */
+  --color-bg: #f5ead8;
+  --color-surface: #ebddc5;
+  --color-text: #201e1d;
+  --color-divider: rgba(32, 30, 29, .16);
 
-  /* Lac : remplace le noir PixelSavane. Titres, pied de page, sections du soir. */
-  --lac-50:  #E6EFEE;
-  --lac-100: #D9E6E4;
-  --lac-300: #B9C9C6;      /* texte doux sur fond lac (7.83:1) */
-  --lac-500: #2A7F84;
-  --lac-700: #17565A;
-  --lac-900: #0D3436;
+  /* Accent terracotta */
+  --color-accent: #c67139;
+  --accent-100: #fff2eb;
+  --accent-200: #ffe1d0;
+  --accent-300: #ffc6a5;
+  --accent-400: #f6a06b;
+  --accent-500: #d67f48;
+  --accent-600: #b2622d;   /* survol des boutons */
+  --accent-700: #8c491a;   /* texte d'accent sur fond clair */
+  --accent-800: #643312;
+  --accent-900: #402310;
 
-  /* Sable : neutres teintés chauds, remplacent le blanc et le gris graphite. */
-  --sable-0:   #FFFCF6;
-  --sable-50:  #FBF5EA;
-  --sable-100: #F4EADA;
-  --sable-200: #E7D8BF;
-  --sable-400: #9C8566;    /* bordure de champ (3.25:1) */
-  --sable-600: #6A5F52;    /* texte doux (5.74:1) */
-  --sable-900: #2E2A24;    /* texte courant (13.14:1) */
+  /* Vert sauge */
+  --color-accent-2: #7a8a5e;
+  --sauge-100: #f0fae1;
+  --sauge-200: #e1eecc;
+  --sauge-300: #ccdbb2;
+  --sauge-400: #aebf92;
+  --sauge-500: #8fa073;
+  --sauge-600: #728157;
+  --sauge-700: #56633f;
+  --sauge-800: #3d472b;    /* bandeaux sombres */
+  --sauge-900: #272e1b;
 
-  /* Vert forêt : gardé de PixelSavane. Nature, « disponible ». */
-  --foret: #2F7C40;        /* 4.75:1 sur sable */
-  --foret-100: #E1EFE3;
+  /* Neutres */
+  --neutre-100: #f9f4ed;
+  --neutre-200: #eee7db;
+  --neutre-300: #dcd3c4;
+  --neutre-400: #c0b6a5;
+  --neutre-500: #a19786;
+  --neutre-600: #82796a;
+  --neutre-700: #645c50;
+  --neutre-800: #474238;
+  --neutre-900: #2e2b25;
 
-  /* Sens */
-  --succes: var(--foret);
-  --erreur: #B33A2A;       /* 5.44:1 */
-  --erreur-100: #F8E1DC;
+  /* Rôles */
+  --texte-doux: var(--neutre-700);
+  --erreur: #b3361f;
+  --succes: var(--sauge-700);
+  --voile: rgba(32, 30, 29, .9);
+  --voile-photo: rgba(32, 30, 29, .72);
+  --entete-fond: rgba(245, 234, 216, .92);
+  --wa: #25d366;
 
-  /* Rôles : ce que le code emploie */
-  --fond: var(--sable-50);
-  --fond-alt: var(--sable-100);
-  --surface: var(--sable-0);
-  --sombre: var(--lac-900);
-  --sur-sombre: var(--sable-50);
-  --sur-sombre-doux: var(--lac-300);
-  --texte: var(--sable-900);
-  --titre: var(--lac-900);
-  --texte-doux: var(--sable-600);
-  --bordure: var(--sable-200);
-  --bordure-champ: var(--sable-400);
-  --action: var(--braise-400);
-  --action-survol: var(--braise-500);
-  --sur-action: var(--lac-900);
-  --lien: var(--braise-700);
-  --focus: var(--lac-500);
-  --voile: rgba(13, 52, 54, .92);        /* fond de la visionneuse photo */
-  --voile-legende: rgba(13, 52, 54, .85); /* bas des vignettes de la galerie */
-
-  /* Typographie : Fraunces (titres, chaleur et élégance) + Sora (texte, héritée de PixelSavane) */
-  --police-titre: "Fraunces", Georgia, "Times New Roman", serif;
-  --police-texte: "Sora", ui-sans-serif, system-ui, sans-serif;
-  --corps: 16px;
+  /* Typographie */
+  --font-display: "Caprasimo", Georgia, serif;
+  --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --h1: clamp(44px, 6.4vw, 78px);
+  --h2: clamp(30px, 3.6vw, 44px);
+  --h3: 23px;
+  --t-corps: 17px;
+  --t-petit: 15px;
+  --t-surtitre: 13px;
   --ligne: 1.6;
-  --t-etiquette: 13px;
-  --t-petit: 14px;
-  --t-corps: 16px;
-  --t-h4: 20px;
-  --t-h3: 24px;
-  --t-h2: clamp(28px, 6vw, 40px);
-  --t-h1: clamp(38px, 9vw, 64px);
+  --ligne-titre: 1.06;
+  --espacement-titre: -0.015em;
 
-  /* Formes : deux rayons contrastés ; séparation au trait, aucune ombre */
-  --rayon-petit: 6px;      /* boutons, champs, étiquettes */
-  --rayon-grand: 22px;     /* cartes, images, blocs */
-  --rayon-rond: 999px;     /* filtres de la carte, bouton WhatsApp flottant */
-  --trait: 1px solid var(--bordure);
+  /* Espacements */
+  --space-1: 4.4px;
+  --space-2: 8.8px;
+  --space-3: 13.2px;
+  --space-4: 17.6px;
+  --space-6: 26.4px;
+  --space-8: 35.2px;
+  --gouttiere: clamp(18px, 4vw, 40px);
+  --section: clamp(56px, 8vw, 96px);
+  --largeur: 1200px;
 
-  /* Espace : progression 4 · 8 · 16 · 24 · 40 · 64 · 104 */
-  --e-1: 4px;  --e-2: 8px;  --e-3: 16px;  --e-4: 24px;
-  --e-5: 40px; --e-6: 64px; --e-7: 104px;
-  --largeur: 1160px;
+  /* Arrondis */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-carte: 32px;
+  --radius-bloc: 39px;
+  --radius-pilule: 999px;
+  --radius-arche: 999px 999px 28px 28px;
 
-  /* Mouvement : discret */
-  --duree: 180ms;
+  /* Ombres */
+  --shadow-sm: 0 1px 2px rgba(46, 43, 37, .14);
+  --shadow-md: 0 3px 10px rgba(46, 43, 37, .16);
+  --shadow-lg: 0 12px 32px rgba(46, 43, 37, .22);
+
+  /* Mouvement */
+  --courbe: cubic-bezier(.2, .7, .2, 1);
+  --duree: .25s;
 }

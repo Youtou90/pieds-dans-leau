@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gestion · Pieds dans l'eau</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0D3436">
+<meta name="theme-color" content="#f5ead8">
 <link rel="icon" href="images/logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="images/icone-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&amp;family=Sora:wght@400;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="admin.css">
 </head>
 <body class="admin">
 
-<header class="entete">
-  <div class="conteneur">
-    <a class="marque" href="index.html" title="Voir le site"><img src="images/logo.svg" alt="" width="42" height="42"><span>Gestion</span></a>
+<header class="entete" id="entete">
+  <div class="conteneur entete-barre">
+    <a class="marque" href="index.html" title="Voir le site"><img src="images/logo.svg" alt="" width="44" height="44"><span>Pieds dans <em>l'eau</em> · Gestion</span></a>
     <button class="nav-bouton" type="button" id="deconnexion" hidden>Se déconnecter</button>
   </div>
 </header>
@@ -89,6 +89,7 @@
           <input id="gal-fichiers" type="file" accept="image/*,video/*" multiple required>
           <small>Les photos sont allégées automatiquement. Préférez des vidéos courtes (moins d'une minute).</small>
         </div>
+        <div class="champ"><label for="gal-theme">Thème</label><select id="gal-theme"><option value="lac">Le lac</option><option value="terrasse">La terrasse</option><option value="soir">Le soir</option></select></div>
         <div class="champ"><label for="gal-legende">Légende (facultatif)</label><input id="gal-legende" maxlength="140" placeholder="Par exemple : le lac au coucher du soleil"></div>
         <button class="bouton b-action" type="submit">Ajouter à la galerie</button>
         <div class="progression" id="gal-progression" hidden><span></span></div>

@@ -116,7 +116,7 @@
       if (r.statut !== "confirmee") actions += '<button class="bouton b-action" type="button" data-statut="confirmee" data-id="' + r.id + '">Confirmer</button>';
       if (r.statut !== "annulee") actions += '<button class="bouton b-second" type="button" data-statut="annulee" data-id="' + r.id + '">Annuler</button>';
       if (r.statut !== "a_confirmer") actions += '<button class="b-discret" type="button" data-statut="a_confirmer" data-id="' + r.id + '">Remettre à confirmer</button>';
-      if (wa) actions += '<a class="b-discret" target="_blank" rel="noopener" href="https://wa.me/' + wa + "?text=" + encodeURIComponent(msgConfirm) + '">Écrire au client</a>';
+      if (wa) actions += '<a class="b-discret" target="_blank" rel="noopener" href="https://wa.me/' + wa + "?text=" + encodeURIComponent(msgConfirm) + '">Répondre sur WhatsApp</a>';
       if (r.telephone) actions += '<a class="b-discret" href="tel:' + echapper(r.telephone.replace(/\s/g, "")) + '">Appeler</a>';
       actions += '<button class="b-discret danger" type="button" data-supprimer-resa="' + r.id + '">Supprimer</button>';
       return '<article class="resa ' + r.statut + '">' +
@@ -326,6 +326,7 @@
         : '<img src="' + echapper(g.fichier) + '" alt="" loading="lazy">';
       return '<div class="element-galerie">' + media + '<div class="pied-element">' +
         '<input value="' + echapper(g.legende) + '" maxlength="140" placeholder="Légende" data-legende="' + g.id + '" aria-label="Légende">' +
+        (g.theme !== undefined ? '<select data-theme-media="' + g.id + '" aria-label="Thème">' + [["lac", "Le lac"], ["terrasse", "La terrasse"], ["soir", "Le soir"]].map(function (t) { return '<option value="' + t[0] + '"' + (g.theme === t[0] ? " selected" : "") + ">" + t[1] + "</option>"; }).join("") + "</select>" : "") +
         '<button class="danger" type="button" data-supprimer-media="' + g.id + '">Retirer</button></div></div>';
     }).join("");
   }
@@ -334,6 +335,12 @@
     if (!i) return;
     var res = await sb.from("galerie").update({ legende: i.value.trim() }).eq("id", i.getAttribute("data-legende"));
     annoncer(res.error ? "Légende non enregistrée." : "Légende enregistrée.", !!res.error);
+  });
+  $("#liste-galerie").addEventListener("change", async function (e) {
+    var s = e.target.closest("[data-theme-media]");
+    if (!s) return;
+    var res = await sb.from("galerie").update({ theme: s.value }).eq("id", s.getAttribute("data-theme-media"));
+    annoncer(res.error ? "Thème non enregistré." : "Thème enregistré.", !!res.error);
   });
   $("#liste-galerie").addEventListener("click", async function (e) {
     var b = e.target.closest("[data-supprimer-media]");
@@ -361,7 +368,9 @@
       barre.firstElementChild.style.width = Math.round((i / fichiers.length) * 100) + "%";
       try {
         var url = await envoyerFichier(fichiers[i], "galerie");
-        var res = await sb.from("galerie").insert({ type: /^video\//.test(fichiers[i].type) ? "video" : "photo", fichier: url, legende: legende });
+        var ligne = { type: /^video\//.test(fichiers[i].type) ? "video" : "photo", fichier: url, legende: legende, theme: $("#gal-theme").value };
+        var res = await sb.from("galerie").insert(ligne);
+        if (res.error) { delete ligne.theme; res = await sb.from("galerie").insert(ligne); }   // si la colonne « theme » n'existe pas encore
         if (res.error) throw res.error;
       } catch (err) { echecs++; }
     }
