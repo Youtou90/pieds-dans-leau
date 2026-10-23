@@ -20,17 +20,20 @@
   --accent-800: #643312;
   --accent-900: #402310;
 
-  /* Vert sauge */
-  --color-accent-2: #7a8a5e;
-  --sauge-100: #f0fae1;
-  --sauge-200: #e1eecc;
-  --sauge-300: #ccdbb2;
-  --sauge-400: #aebf92;
-  --sauge-500: #8fa073;
-  --sauge-600: #728157;
-  --sauge-700: #56633f;
-  --sauge-800: #3d472b;    /* bandeaux sombres */
-  --sauge-900: #272e1b;
+  /* Vert sapin (charte PDF « Identité visuelle Pieds dans l’eau ») :
+     #0b3a34 bandeaux, #0f4c44 titres et prix, #176f63 bouton sur fond sapin.
+     Les noms « sauge » sont gardés pour ne rien casser dans le code. */
+  --color-accent-2: #176f63;
+  --sapin-titre: #0f4c44;
+  --sauge-100: #eaf4f1;
+  --sauge-200: #d6e9e3;
+  --sauge-300: #b4d4cb;
+  --sauge-400: #82b3a6;
+  --sauge-500: #4f9183;
+  --sauge-600: #237a6c;
+  --sauge-700: #176f63;    /* bouton sur fond sapin */
+  --sauge-800: #0b3a34;    /* bandeaux sombres, fond du héros */
+  --sauge-900: #072a26;    /* pied de page */
 
   /* Neutres */
   --neutre-100: #f9f4ed;
@@ -52,17 +55,21 @@
   --entete-fond: rgba(245, 234, 216, .92);
   --wa: #25d366;
 
-  /* Typographie */
+  /* Typographie (charte « Identité visuelle Pieds dans l’eau », octobre 2026)
+     Caprasimo 400 : nom, titres, noms de plats, boutons. Jamais en texte courant, jamais en capitales.
+     Figtree 400 / 600 / 700 : paragraphes, descriptions, prix, horaires, formulaires, navigation. */
   --font-display: "Caprasimo", Georgia, serif;
   --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif;
-  --h1: clamp(44px, 6.4vw, 78px);
-  --h2: clamp(30px, 3.6vw, 44px);
-  --h3: 23px;
-  --t-corps: 17px;
+  --display: clamp(48px, 7.4vw, 120px);   --ligne-display: .96;   /* héros d’accueil uniquement */
+  --h1: clamp(40px, 5.6vw, 80px);         --ligne-h1: 1.04;       /* titre de page */
+  --h2: clamp(30px, 3.7vw, 52px);         --ligne-h2: 1.08;       /* titre de section */
+  --h3: clamp(22px, 2.1vw, 30px);         --ligne-h3: 1.12;       /* catégorie de menu, carte */
+  --h4: clamp(19px, 1.55vw, 22px);        --ligne-h4: 1.2;        /* nom de plat */
+  --chapo: clamp(18px, 1.5vw, 21px);      --ligne-chapo: 1.5;     /* introduction de section */
+  --t-corps: clamp(16px, 1.25vw, 17.5px); --ligne: 1.62;          /* texte, 62 caractères max */
+  --mesure: 62ch;
   --t-petit: 15px;
-  --t-surtitre: 13px;
-  --ligne: 1.6;
-  --ligne-titre: 1.06;
+  --t-surtitre: 12.5px;                   --espacement-etiquette: .14em;  /* étiquette, Figtree 700 */
   --espacement-titre: -0.015em;
 
   /* Espacements */

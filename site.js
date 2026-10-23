@@ -7,7 +7,7 @@
   var corps = document.body;
   var BASE = corps.getAttribute("data-base") || "";
   var PAGE = corps.getAttribute("data-page") || "";
-  var MESSAGE_PAGE = corps.getAttribute("data-message") || "Bonjour Pieds dans l'eau !";
+  var MESSAGE_PAGE = corps.getAttribute("data-message") || "Bonjour Pieds dans l’eau !";
   var survolPossible = window.matchMedia("(hover: hover) and (min-width: 1040px)");
   var mouvementReduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.add("js");
@@ -26,7 +26,13 @@
   function lire(cle, defaut) { try { var v = JSON.parse(localStorage.getItem(cle)); return v == null ? defaut : v; } catch (e) { return defaut; } }
   function stocker(cle, v) { try { localStorage.setItem(cle, JSON.stringify(v)); } catch (e) {} }
   function montant(prix) { var n = parseInt(String(prix || "").replace(/[^\d]/g, ""), 10); return isNaN(n) ? null : n; }
-  function fcfa(n) { return n.toLocaleString("fr-FR").replace(/ | /g, " ") + " FCFA"; }
+  // Prix selon la charte : espace fine entre milliers, devise après le prix (5 000 FCFA)
+  function milliers(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u202f"); }
+  function fcfa(n) { return milliers(n) + "\u00a0FCFA"; }
+  function prixHTML(prix) {
+    var m = montant(prix);
+    return m === null ? echapper(prix) : milliers(m) + "\u00a0<small>FCFA</small>";
+  }
   var I_WA = '<svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>';
   var I_FLECHE = '<svg class="ico fleche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
 
@@ -45,7 +51,7 @@
     var d = new Date();
     var h = (d.getUTCHours() + 1 + d.getUTCMinutes() / 60) % 24;   // Bertoua : UTC+1
     if (h >= heures.debut && h < heures.fin) return { ouvert: true, texte: heures.fin - h <= 1 ? "Ouvert, ferme bientôt" : "Ouvert maintenant" };
-    return { ouvert: false, texte: "Fermé, ouvre à " + heures.debut + " h" };
+    return { ouvert: false, texte: "Fermé, ouvre à " + String(heures.debut).padStart(2, "0") + " h" };
   }
   function majOuverture() {
     var e = etatOuverture();
@@ -88,12 +94,12 @@
   /* ---------- Aperçu des pages au survol du menu ---------- */
   function pages() {
     return {
-      "index.html": { photo: "photos/lieu/lac-coucher.jpg", surtitre: "Accueil", titre: "Pieds dans l'eau, cœur au chaud.", texte: "Le restaurant en plein air au bord du lac, au Camp-SIC. Réservez votre table en 10 secondes.", tags: ["Au bord du lac", "Ouvert 7 j/7"] },
+      "index.html": { photo: "photos/lieu/lac-coucher.jpg", surtitre: "Accueil", titre: "Pieds dans l’eau, cœur au chaud.", texte: "Le restaurant en plein air au bord du lac, au Camp-SIC. Réservez votre table en 10 secondes.", tags: ["Au bord du lac", "Ouvert 7 j/7"] },
       "carte.html": { photo: "photos/plats/ndole.jpg", surtitre: "La carte", titre: "Les plats du pays", texte: "Ekwang, koki chaud, ndolè aux crevettes, taro sauce jaune. Ajoutez au panier, commandez sur WhatsApp.", tags: ["4 plats", "Sur place ou à emporter"] },
-      "activites.html": { photo: "photos/lieu/lac-pirogue.jpg", surtitre: "Activités", titre: "Plus qu'un repas", texte: "La balade en pirogue, les anniversaires au bord de l'eau, les repas d'équipe au calme.", tags: ["Pirogue", "Anniversaires", "Entreprises"] },
+      "activites.html": { photo: "photos/lieu/lac-pirogue.jpg", surtitre: "Activités", titre: "Plus qu’un repas", texte: "La balade en pirogue, les anniversaires au bord de l’eau, les repas d’équipe au calme.", tags: ["Pirogue", "Anniversaires", "Entreprises"] },
       "galerie.html": { photo: "photos/lieu/soir-terrasse.jpg", surtitre: "Galerie", titre: "Le lac en images", texte: "Le lac au coucher du soleil, la terrasse sur pilotis et ses lumières le soir.", tags: ["Le lac", "La terrasse", "Le soir"] },
-      "questions.html": { photo: "photos/lieu/terrasse.jpg", surtitre: "Questions", titre: "Vos questions, nos réponses", texte: "Horaires, accès, réservation, pirogue, anniversaires : l'essentiel avant de venir.", tags: ["Horaires", "Accès", "Réservation"] },
-      "a-propos.html": { photo: "photos/lieu/terrasse-jour.jpg", surtitre: "Le lieu", titre: "Une terrasse au bord de l'eau", texte: "On retire ses chaussures, on garde les pieds au frais pendant le repas. Le temps ralentit.", tags: ["Camp-SIC", "Nkolbikon"] },
+      "questions.html": { photo: "photos/lieu/terrasse.jpg", surtitre: "Questions", titre: "Vos questions, nos réponses", texte: "Horaires, accès, réservation, pirogue, anniversaires : l’essentiel avant de venir.", tags: ["Horaires", "Accès", "Réservation"] },
+      "a-propos.html": { photo: "photos/lieu/terrasse-jour.jpg", surtitre: "Le lieu", titre: "Une terrasse au bord de l’eau", texte: "On retire ses chaussures, on garde les pieds au frais pendant le repas. Le temps ralentit.", tags: ["Camp-SIC", "Nkolbikon"] },
       "contact.html": { photo: "photos/lieu/entree.jpg", surtitre: "Contact", titre: "Réserver, venir, nous écrire", texte: (C.horaires || "") + ". " + (C.adresse || "") + ".", tags: [etatOuverture().texte, "WhatsApp"] }
     };
   }
@@ -145,9 +151,9 @@
     var choix = function (groupe) { var b = $('[data-groupe="' + groupe + '"] [aria-pressed="true"]', resa10); return b ? b.textContent : ""; };
     var majResa10 = function () {
       var moment = choix("moment"), repas = choix("repas").toLowerCase();
-      var texte = "Bonjour Pieds dans l'eau ! Je voudrais réserver une table pour " + nb + (nb > 1 ? " personnes" : " personne") +
+      var texte = "Bonjour Pieds dans l’eau ! Je voudrais réserver une table pour " + nb + (nb > 1 ? " personnes" : " personne") +
         ", " + moment.toLowerCase() + ", pour le " + repas + ". Merci de me confirmer.";
-      $("#resa10-message").textContent = "« " + texte + " »";
+      $("#resa10-message").textContent = "« " + texte + " »";
       $("#resa10-envoyer").href = lienWhatsApp(texte);
       $("#resa10-n").textContent = nb;
     };
@@ -188,7 +194,7 @@
     return avecDelai(Promise.all([plats, galerie]), 8000).then(function (r) {
       if (r[0] && r[0].length) C.carte = r[0];
       if (r[1] && r[1].length) C.galerie = r[1];
-    }).catch(function (e) { if (window.console) console.warn("Base indisponible, données locales :", e.message); });
+    }).catch(function (e) { if (window.console) console.warn("Base indisponible, données locales :", e.message); });
   }
 
   /* ---------- Plats : fiche (page dédiée, photos) ---------- */
@@ -208,7 +214,7 @@
   function lienPagePlat(p) { var f = ficheDe(p); return f.id ? (C.siteUrl || "") + "/plats/" + f.id + ".html" : ""; }
   function messagePlat(p, q) {
     var lien = lienPagePlat(p);
-    return "Bonjour Pieds dans l'eau ! Je voudrais commander : " + (q > 1 ? q + " × " : "") + p.nom + "." + (lien ? "\n" + lien : "");
+    return "Bonjour Pieds dans l’eau ! Je voudrais commander : " + (q > 1 ? q + " × " : "") + p.nom + "." + (lien ? "\n" + lien : "");
   }
 
   /* ---------- Panier ---------- */
@@ -257,9 +263,9 @@
     var t = total();
     var mode = (volet.querySelector('input[name="mode"]:checked') || {}).value || "Sur place";
     var nom = $("#cmd-nom", volet).value.trim();
-    return "Bonjour Pieds dans l'eau ! Je voudrais commander :\n" + lignes +
-      (t.complet && t.valeur ? "\nTotal indiqué sur le site : " + fcfa(t.valeur) : "") +
-      "\n\n" + mode + (nom ? "\nNom : " + nom : "") + (liens.length ? "\n\n" + liens.join("\n") : "");
+    return "Bonjour Pieds dans l’eau ! Je voudrais commander :\n" + lignes +
+      (t.complet && t.valeur ? "\nTotal indiqué sur le site : " + fcfa(t.valeur) : "") +
+      "\n\n" + mode + (nom ? "\nNom : " + nom : "") + (liens.length ? "\n\n" + liens.join("\n") : "");
   }
   function majEnvoi() { $("#cmd-envoyer", volet).href = lienWhatsApp(messageCommande()); }
   function majPanier() {
@@ -274,7 +280,7 @@
       return "<li>" + (ph ? '<img class="washed" src="' + chemin(ph) + '" alt="">' : "<span></span>") +
         "<div><b>" + echapper(nom) + "</b>" + (montant(p.prix) !== null ? '<div class="prix">' + fcfa(montant(p.prix) * panier[nom]) + "</div>" : "") + "</div>" + htmlQuantite(nom) + "</li>";
     }).join("") || '<li class="panier-vide" style="display:block">Votre panier est vide.</li>';
-    $(".volet-total", volet).innerHTML = n ? (t.complet && t.valeur ? "<b>Total : " + fcfa(t.valeur) + "</b>" : '<p class="mention">Le restaurant vous confirme le prix total sur WhatsApp.</p>') : "";
+    $(".volet-total", volet).innerHTML = n ? (t.complet && t.valeur ? "<b>Total : " + fcfa(t.valeur) + "</b>" : '<p class="mention">Le restaurant vous confirme le prix total sur WhatsApp.</p>') : "";
     $(".volet-pied", volet).hidden = n === 0;
     majEnvoi();
   }
@@ -304,12 +310,12 @@
     fiche.innerHTML = '<div class="fiche-grille"><div class="fiche-photos"><div class="grande"><img class="washed" src="' + chemin(ph[0] || "") + '" alt="' + echapper(p.nom) + '"></div>' +
       (ph.length > 1 ? '<div class="miniatures">' + ph.map(function (x, i) { return '<button type="button" data-photo="' + echapper(chemin(x)) + '" aria-pressed="' + (i === 0) + '" aria-label="Photo ' + (i + 1) + '"><img src="' + chemin(x) + '" alt=""></button>'; }).join("") + "</div>" : "") +
       '</div><div class="fiche-texte"><button type="button" class="fermer" data-fermer aria-label="Fermer">×</button><span class="surtitre">' + echapper((C.categories || {})[p.categorie] || "À la carte") + "</span>" +
-      '<h2 id="fiche-titre">' + echapper(p.nom) + "</h2>" + (p.prix ? '<span class="prix">' + echapper(p.prix) + "</span>" : "") + '<p class="chapeau" style="font-size:17px">' + echapper(p.description) + "</p>" +
+      '<h2 id="fiche-titre">' + echapper(p.nom) + "</h2>" + (p.prix ? '<span class="prix">' + prixHTML(p.prix) + "</span>" : "") + '<p class="chapeau" style="font-size:17px">' + echapper(p.description) + "</p>" +
       (p.disponible
         ? '<div class="choix-groupe"><span>Quantité</span><div class="compteur"><button type="button" data-q="-1" aria-label="Un de moins">−</button><output id="fiche-q">1</output><button type="button" data-q="1" aria-label="Un de plus">+</button></div></div>' +
           '<a class="bouton b-accent" id="fiche-wa" target="_blank" rel="noopener" href="' + lienWhatsApp(messagePlat(p, 1)) + '">' + I_WA + "Commander ce plat sur WhatsApp</a>" +
           '<button type="button" class="bouton b-contour" id="fiche-panier">Ajouter au panier et continuer</button>'
-        : '<span class="badge-epuise">Épuisé aujourd\'hui</span>') +
+        : '<span class="badge-epuise">Épuisé aujourd’hui</span>') +
       "</div></div>";
     if (fiche.showModal) fiche.showModal();
   }
@@ -326,14 +332,14 @@
   function htmlPlat(p, i) {
     var ph = photosDe(p);
     var lienWa = '<a class="lien-wa-plat" target="_blank" rel="noopener" href="' + lienWhatsApp(messagePlat(p, 1)) + '">' + I_WA + "Commander</a>";
-    return '<article class="plat monte' + (p.disponible ? "" : " epuise") + '" style="--i:' + i + '">' +
+    return '<article class="plat monte' + (p.disponible ? "" : " epuise") + '" style="--i:' + i + '">' +
       '<button type="button" class="plat-photo" data-fiche="' + echapper(p.nom) + '" aria-label="Voir ' + echapper(p.nom) + ' en grand">' +
       (ph[0] ? '<img class="washed" src="' + chemin(ph[0]) + '" alt="' + echapper(p.nom) + '" loading="lazy">' : "") +
       (ph[1] ? '<img class="washed photo-2" src="' + chemin(ph[1]) + '" alt="" loading="lazy">' : "") +
       '<span class="loupe">Voir en grand</span></button>' +
-      '<div class="plat-corps"><div class="plat-tete"><h3>' + echapper(p.nom) + "</h3>" + (p.prix ? '<span class="prix">' + echapper(p.prix) + "</span>" : "") + "</div>" +
+      '<div class="plat-corps"><div class="plat-tete"><h3>' + echapper(p.nom) + "</h3>" + (p.prix ? '<span class="prix">' + prixHTML(p.prix) + "</span>" : "") + "</div>" +
       "<p>" + echapper(p.description) + "</p>" +
-      '<div class="plat-pied">' + (p.disponible ? '<div data-zone-quantite="' + echapper(p.nom) + '">' + htmlQuantite(p.nom) + "</div>" + lienWa : '<span class="badge-epuise">Épuisé aujourd\'hui</span>') + "</div></div></article>";
+      '<div class="plat-pied">' + (p.disponible ? '<div data-zone-quantite="' + echapper(p.nom) + '">' + htmlQuantite(p.nom) + "</div>" + lienWa : '<span class="badge-epuise">Épuisé aujourd’hui</span>') + "</div></div></article>";
   }
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-fiche]");
@@ -448,9 +454,9 @@
         return;
       }
       var jour = new Date(v("resa-date") + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
-      var texte = "Bonjour Pieds dans l'eau ! Je souhaite réserver une table.\nNom : " + v("resa-nom") + "\nTéléphone : " + v("resa-tel") +
-        "\nDate : " + jour + (v("resa-heure") ? " vers " + v("resa-heure") : "") + "\nNombre de personnes : " + v("resa-personnes") +
-        (v("resa-occasion") ? "\nOccasion : " + v("resa-occasion") : "") + (v("resa-message") ? "\nPrécisions : " + v("resa-message") : "");
+      var texte = "Bonjour Pieds dans l’eau ! Je souhaite réserver une table.\nNom : " + v("resa-nom") + "\nTéléphone : " + v("resa-tel") +
+        "\nDate : " + jour + (v("resa-heure") ? " vers " + v("resa-heure") : "") + "\nNombre de personnes : " + v("resa-personnes") +
+        (v("resa-occasion") ? "\nOccasion : " + v("resa-occasion") : "") + (v("resa-message") ? "\nPrécisions : " + v("resa-message") : "");
       // La fenêtre WhatsApp est ouverte tout de suite (sinon le navigateur la bloque), puis remplie après l'enregistrement.
       var fenetre = window.open("", "_blank");
       var bouton = $('button[type="submit"]', form);
@@ -472,7 +478,7 @@
           conf.hidden = false;
           conf.focus();
         } else {
-          alerte.textContent = "Votre demande n'a pas pu être enregistrée sur le site. Envoyez le message WhatsApp qui s'est ouvert, ou appelez-nous : nous la noterons.";
+          alerte.textContent = "Votre demande n’a pas pu être enregistrée sur le site. Envoyez le message WhatsApp qui s’est ouvert, ou appelez-nous : nous la noterons.";
           alerte.hidden = false;
         }
       });

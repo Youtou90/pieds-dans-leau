@@ -41,7 +41,7 @@
       await sb.auth.signOut();
       montrer("connexion");
       var err = $("#cx-erreur");
-      err.textContent = "Ce compte n'est pas autorisé à gérer le site. Demandez à être ajouté à la liste des admins.";
+      err.textContent = "Ce compte n’est pas autorisé à gérer le site. Demandez à être ajouté à la liste des admins.";
       err.hidden = false;
       return;
     }
@@ -110,8 +110,8 @@
     }
     zone.innerHTML = liste.map(function (r) {
       var wa = numeroWhatsApp(r.telephone);
-      var msgConfirm = "Bonjour " + r.nom + ", votre réservation chez Pieds dans l'eau pour " + dateLisible(r.date_resa) +
-        (r.heure ? " vers " + r.heure : "") + " (" + r.personnes + " pers.) est confirmée. À bientôt au bord du lac !";
+      var msgConfirm = "Bonjour " + r.nom + ", votre réservation chez Pieds dans l’eau pour " + dateLisible(r.date_resa) +
+        (r.heure ? " vers " + r.heure : "") + " (" + r.personnes + " pers.) est confirmée. À bientôt au bord du lac !";
       var actions = "";
       if (r.statut !== "confirmee") actions += '<button class="bouton b-action" type="button" data-statut="confirmee" data-id="' + r.id + '">Confirmer</button>';
       if (r.statut !== "annulee") actions += '<button class="bouton b-second" type="button" data-statut="annulee" data-id="' + r.id + '">Annuler</button>';
@@ -142,14 +142,14 @@
     if (b) {
       var id = b.getAttribute("data-id"), statut = b.getAttribute("data-statut");
       var res = await sb.from("reservations").update({ statut: statut }).eq("id", id);
-      if (res.error) { annoncer("La modification n'a pas été enregistrée.", true); return; }
+      if (res.error) { annoncer("La modification n’a pas été enregistrée.", true); return; }
       reservations.forEach(function (r) { if (r.id === id) r.statut = statut; });
       afficherReservations();
       annoncer({ confirmee: "Réservation confirmée. Pensez à prévenir le client.", annulee: "Réservation annulée.", a_confirmer: "Remise à confirmer." }[statut]);
       return;
     }
     var s = e.target.closest("[data-supprimer-resa]");
-    if (s && confirm("Supprimer définitivement cette réservation ?")) {
+    if (s && confirm("Supprimer définitivement cette réservation ?")) {
       var id2 = s.getAttribute("data-supprimer-resa");
       var res2 = await sb.from("reservations").delete().eq("id", id2);
       if (res2.error) { annoncer("Suppression impossible.", true); return; }
@@ -208,7 +208,7 @@
       var liste = plats.filter(function (p) { return p.categorie === k; });
       if (!liste.length) return "";
       return '<div class="groupe-plats"><h2>' + echapper(CATEGORIES[k]) + "</h2>" + liste.map(function (p) {
-        return '<div class="ligne-plat' + (p.disponible ? "" : " epuise") + '">' +
+        return '<div class="ligne-plat' + (p.disponible ? "" : " epuise") + '">' +
           (p.photo ? '<img class="vignette" src="' + echapper(p.photo) + '" alt="">' : '<span class="vignette" aria-hidden="true"></span>') +
           '<div class="infos-plat"><button type="button" data-modifier="' + p.id + '"><b>' + echapper(p.nom) + "</b><small>" +
           (p.prix ? echapper(p.prix) : "Sans prix affiché") + ' · </small><span class="modifier">Modifier</span></button></div>' +
@@ -222,11 +222,11 @@
     if (!c) return;
     var id = c.getAttribute("data-dispo");
     var res = await sb.from("plats").update({ disponible: c.checked }).eq("id", id);
-    if (res.error) { c.checked = !c.checked; annoncer("La modification n'a pas été enregistrée.", true); return; }
+    if (res.error) { c.checked = !c.checked; annoncer("La modification n’a pas été enregistrée.", true); return; }
     plats.forEach(function (p) { if (p.id === id) p.disponible = c.checked; });
     afficherPlats();
     var p = plats.filter(function (x) { return x.id === id; })[0];
-    annoncer(p.nom + (c.checked ? " : disponible." : " : épuisé."));
+    annoncer(p.nom + (c.checked ? " : disponible." : " : épuisé."));
   });
 
   var fiche = $("#fiche-plat");
@@ -293,14 +293,14 @@
       chargerPlats();
     } catch (err) {
       var pe = $("#p-erreur");
-      pe.textContent = "L'enregistrement a échoué. Vérifiez la connexion et réessayez.";
+      pe.textContent = "L’enregistrement a échoué. Vérifiez la connexion et réessayez.";
       pe.hidden = false;
     } finally {
       bouton.disabled = false; bouton.textContent = "Enregistrer";
     }
   });
   $("#p-supprimer").addEventListener("click", async function () {
-    if (!platEdite || !confirm("Supprimer « " + platEdite.nom + " » de la carte ?")) return;
+    if (!platEdite || !confirm("Supprimer « " + platEdite.nom + " » de la carte ?")) return;
     var res = await sb.from("plats").delete().eq("id", platEdite.id);
     if (res.error) { annoncer("Suppression impossible.", true); return; }
     if (platEdite.photo) supprimerFichier(platEdite.photo);
@@ -344,7 +344,7 @@
   });
   $("#liste-galerie").addEventListener("click", async function (e) {
     var b = e.target.closest("[data-supprimer-media]");
-    if (!b || !confirm("Retirer cet élément de la galerie ?")) return;
+    if (!b || !confirm("Retirer cet élément de la galerie ?")) return;
     var id = b.getAttribute("data-supprimer-media");
     var g = galerie.filter(function (x) { return x.id === id; })[0];
     var res = await sb.from("galerie").delete().eq("id", id);
@@ -378,7 +378,7 @@
     setTimeout(function () { barre.hidden = true; barre.firstElementChild.style.width = "0"; }, 600);
     bouton.disabled = false; bouton.textContent = "Ajouter à la galerie";
     this.reset();
-    annoncer(echecs ? echecs + " fichier(s) n'ont pas pu être envoyés (trop lourds ?)." : "Ajouté à la galerie.", !!echecs);
+    annoncer(echecs ? echecs + " fichier(s) n’ont pas pu être envoyés (trop lourds ?)." : "Ajouté à la galerie.", !!echecs);
     chargerGalerie();
   });
 

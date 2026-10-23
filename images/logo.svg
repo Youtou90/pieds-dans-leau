@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Pieds dans l'eau">
-  <circle cx="60" cy="60" r="60" fill="#3d472b"/>
+  <circle cx="60" cy="60" r="60" fill="#0b3a34"/>
   <circle cx="60" cy="60" r="55" fill="none" stroke="#f5ead8" stroke-opacity=".25" stroke-width="1.5"/>
   <!-- soleil couchant -->
   <path d="M28 70 A32 32 0 0 1 92 70 Z" fill="#c67139"/>
   <!-- pirogue et pagayeur -->
-  <path d="M33 65 Q60 74 87 65 Q84 70.5 79 71 L41 71 Q36 70.5 33 65 Z" fill="#3d472b"/>
-  <circle cx="63" cy="46.5" r="3.6" fill="#3d472b"/>
-  <path d="M60.6 51.5 L65.4 51.5 L66.4 65.5 L59 65.5 Z" fill="#3d472b"/>
-  <path d="M71.5 43 L56 77" stroke="#3d472b" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M33 65 Q60 74 87 65 Q84 70.5 79 71 L41 71 Q36 70.5 33 65 Z" fill="#0b3a34"/>
+  <circle cx="63" cy="46.5" r="3.6" fill="#0b3a34"/>
+  <path d="M60.6 51.5 L65.4 51.5 L66.4 65.5 L59 65.5 Z" fill="#0b3a34"/>
+  <path d="M71.5 43 L56 77" stroke="#0b3a34" stroke-width="2.4" stroke-linecap="round"/>
   <!-- vagues -->
   <path d="M22 80 q6.33 -4 12.67 0 t12.67 0 t12.67 0 t12.67 0 t12.67 0 t12.67 0" fill="none" stroke="#f5ead8" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M34 89.5 q6.5 -4 13 0 t13 0 t13 0 t13 0" fill="none" stroke="#aebf92" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M34 89.5 q6.5 -4 13 0 t13 0 t13 0 t13 0" fill="none" stroke="#82b3a6" stroke-width="3.2" stroke-linecap="round"/>
   <path d="M47 99 q6.5 -4 13 0 t13 0" fill="none" stroke="#f6a06b" stroke-width="3.2" stroke-linecap="round"/>
 </svg>

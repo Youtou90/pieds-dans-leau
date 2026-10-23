@@ -17,7 +17,7 @@ window.CONTENU = {
   telephone: "+237659937890",
   telephoneAffiche: "+237 659 93 78 90",
   whatsappAffiche: "+237 691 25 68 21",
-  horaires: "Tous les jours, de 8 h à minuit",
+  horaires: "Tous les jours, 08\u00a0h\u00a0– 00\u00a0h",
   ouverture: { debut: 8, fin: 24 },
   adresse: "Camp-SIC, quartier Nkolbikon, Bertoua",
   carteLien: "https://www.google.com/maps/search/?api=1&query=Camp+SIC+Nkolbikon+Bertoua",
@@ -35,11 +35,11 @@ window.CONTENU = {
   /* ---------- La carte de secours ---------- */
   carte: [
     { nom: "Ekwang", categorie: "pays", prix: "", photo: "photos/plats/ekwang.jpg", disponible: true,
-      description: "Feuilles de macabo râpé roulées une à une, mijotées dans une sauce à l'huile rouge." },
+      description: "Feuilles de macabo râpé roulées une à une, mijotées dans une sauce à l’huile rouge." },
     { nom: "Koki chaud", categorie: "pays", prix: "", photo: "photos/plats/koki.jpg", disponible: true,
       description: "Gâteau de haricots cuit à la vapeur, servi chaud avec ses bâtons de manioc." },
     { nom: "Ndolè aux crevettes", categorie: "pays", prix: "", photo: "photos/plats/ndole.jpg", disponible: true,
-      description: "Le grand classique camerounais aux feuilles de ndolè et à l'arachide, garni de crevettes." },
+      description: "Le grand classique camerounais aux feuilles de ndolè et à l’arachide, garni de crevettes." },
     { nom: "Taro sauce jaune", categorie: "pays", prix: "", photo: "photos/plats/taro.jpg", disponible: true,
       description: "Pâte de taro pilé, servie avec la sauce jaune et ses morceaux de viande." }
   ],
@@ -58,13 +58,13 @@ window.CONTENU = {
     { type: "photo", theme: "terrasse", fichier: "photos/lieu/terrasse-jour.jpg", legende: "La terrasse sur pilotis" },
     { type: "photo", theme: "soir", fichier: "photos/lieu/soir-salle.jpg", legende: "La salle, le soir" },
     { type: "photo", theme: "lac", fichier: "photos/lieu/lac-pirogue.jpg", legende: "Départ en pirogue" },
-    { type: "photo", theme: "terrasse", fichier: "photos/lieu/terrasse.jpg", legende: "Les tables à l'ombre" },
-    { type: "photo", theme: "lac", fichier: "photos/lieu/lac-dore.jpg", legende: "Le lac, fin d'après-midi" },
+    { type: "photo", theme: "terrasse", fichier: "photos/lieu/terrasse.jpg", legende: "Les tables à l’ombre" },
+    { type: "photo", theme: "lac", fichier: "photos/lieu/lac-dore.jpg", legende: "Le lac, fin d’après-midi" },
     { type: "photo", theme: "soir", fichier: "photos/lieu/soir-terrasse.jpg", legende: "La terrasse éclairée" },
     { type: "photo", theme: "lac", fichier: "photos/lieu/pirogue.jpg", legende: "La pirogue et ses gilets" },
-    { type: "photo", theme: "terrasse", fichier: "photos/lieu/lac-chaises.jpg", legende: "Les chaises au bord de l'eau" },
+    { type: "photo", theme: "terrasse", fichier: "photos/lieu/lac-chaises.jpg", legende: "Les chaises au bord de l’eau" },
     { type: "photo", theme: "soir", fichier: "photos/lieu/soir-tables.jpg", legende: "Dîner entre amis" },
-    { type: "photo", theme: "terrasse", fichier: "photos/lieu/entree.jpg", legende: "L'entrée" },
+    { type: "photo", theme: "terrasse", fichier: "photos/lieu/entree.jpg", legende: "L’entrée" },
     { type: "photo", theme: "soir", fichier: "photos/lieu/soir-fete.jpg", legende: "Une soirée animée" }
   ]
 };

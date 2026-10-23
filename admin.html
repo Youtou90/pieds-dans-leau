@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gestion · Pieds dans l'eau</title>
+<title>Gestion · Pieds dans l’eau</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#f5ead8">
 <link rel="icon" href="images/logo.svg" type="image/svg+xml">
@@ -19,7 +19,7 @@
 
 <header class="entete" id="entete">
   <div class="conteneur entete-barre">
-    <a class="marque" href="index.html" title="Voir le site"><img src="images/logo.svg" alt="" width="44" height="44"><span>Pieds dans <em>l'eau</em> · Gestion</span></a>
+    <a class="marque" href="index.html" title="Voir le site"><img src="images/logo.svg" alt="" width="44" height="44"><span>Pieds dans <em>l’eau</em> · Gestion</span></a>
     <button class="nav-bouton" type="button" id="deconnexion" hidden>Se déconnecter</button>
   </div>
 </header>
@@ -28,13 +28,13 @@
 
   <!-- Base pas encore branchée -->
   <section id="vue-config" class="admin-carte" hidden>
-    <h1>La base n'est pas encore branchée</h1>
+    <h1>La base n’est pas encore branchée</h1>
     <p>Renseignez <code>supabaseUrl</code> et <code>supabaseCle</code> dans le fichier <code>contenu.js</code>, puis renvoyez-le sur GitHub.</p>
   </section>
 
   <!-- Connexion -->
   <section id="vue-connexion" class="admin-carte connexion" hidden>
-    <span class="surtitre">Pieds dans l'eau</span>
+    <span class="surtitre">Pieds dans l’eau</span>
     <h1>Espace de gestion</h1>
     <p class="texte-doux">La carte, les photos et les réservations.</p>
     <form id="form-connexion" novalidate>
@@ -76,7 +76,7 @@
         <h1>La carte</h1>
         <button class="bouton b-action petit" type="button" id="ajouter-plat">+ Ajouter un plat</button>
       </div>
-      <p class="texte-doux">Touchez l'interrupteur pour passer un plat en « épuisé ». Le site se met à jour aussitôt.</p>
+      <p class="texte-doux">Touchez l’interrupteur pour passer un plat en « épuisé ». Le site se met à jour aussitôt.</p>
       <div id="liste-plats"></div>
     </section>
 
@@ -87,10 +87,10 @@
         <div class="champ">
           <label for="gal-fichiers">Photos ou vidéos</label>
           <input id="gal-fichiers" type="file" accept="image/*,video/*" multiple required>
-          <small>Les photos sont allégées automatiquement. Préférez des vidéos courtes (moins d'une minute).</small>
+          <small>Les photos sont allégées automatiquement. Préférez des vidéos courtes (moins d’une minute).</small>
         </div>
         <div class="champ"><label for="gal-theme">Thème</label><select id="gal-theme"><option value="lac">Le lac</option><option value="terrasse">La terrasse</option><option value="soir">Le soir</option></select></div>
-        <div class="champ"><label for="gal-legende">Légende (facultatif)</label><input id="gal-legende" maxlength="140" placeholder="Par exemple : le lac au coucher du soleil"></div>
+        <div class="champ"><label for="gal-legende">Légende (facultatif)</label><input id="gal-legende" maxlength="140" placeholder="Par exemple : le lac au coucher du soleil"></div>
         <button class="bouton b-action" type="submit">Ajouter à la galerie</button>
         <div class="progression" id="gal-progression" hidden><span></span></div>
       </form>
@@ -109,7 +109,7 @@
     <div class="champ"><label for="p-desc">Description</label><textarea id="p-desc" maxlength="300"></textarea></div>
     <div class="duo-admin">
       <div class="champ"><label for="p-prix">Prix (facultatif)</label><input id="p-prix" maxlength="40" placeholder="3 500 FCFA"></div>
-      <div class="champ"><label for="p-ordre">Ordre d'affichage</label><input id="p-ordre" type="number" min="0" step="1" value="100"><small>Plus petit = plus haut</small></div>
+      <div class="champ"><label for="p-ordre">Ordre d’affichage</label><input id="p-ordre" type="number" min="0" step="1" value="100"><small>Plus petit = plus haut</small></div>
     </div>
     <div class="champ">
       <label for="p-photo">Photo (facultatif)</label>
